@@ -17,4 +17,9 @@ public class WeeklyWorkHoursServiceImpl implements WeeklyWorkHoursService{
 public Optional<WeeklyWorkHours> findById(Long id) {
  return weeklyWorkHoursRepository.findById(id);
 }
+
+@Override
+public Optional<WeeklyWorkHours> findByCompanyName(String name) {
+ return weeklyWorkHoursRepository.findByCompany_Name(name);
+}
 }

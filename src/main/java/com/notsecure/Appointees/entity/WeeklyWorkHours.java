@@ -9,6 +9,10 @@ public class WeeklyWorkHours {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
+
+@OneToOne
+private Company company;
+
 @Nullable
 @OneToOne
 private DailyWorkHours sunday;
