@@ -8,19 +8,10 @@ public class DailyWorkHours {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
-private String strValue;
 @OneToMany
 private List<WorkHours> workHours;
 
 public DailyWorkHours() {
-}
-
-public String getStrValue() {
- return strValue;
-}
-
-public void setStrValue(String strValue) {
- this.strValue = strValue;
 }
 
 public Long getId() {
@@ -43,7 +34,6 @@ public void setWorkHours(List<WorkHours> workHours) {
 public String toString() {
  return "DailyWorkHours{" +
                  "id=" + id +
-                 ", strValue='" + strValue + '\'' +
                  ", workHours=" + workHours +
                  '}';
 }

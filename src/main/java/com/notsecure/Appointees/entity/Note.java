@@ -2,6 +2,7 @@ package com.notsecure.Appointees.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,6 +14,8 @@ private LocalDateTime inDateTime;
 private LocalDateTime endDateTime;
 private boolean isBlock;
 private String availableTo; // who can see the notes
+@ManyToOne
+private Appointment appointment;
 
 public Note() {
 }

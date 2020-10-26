@@ -8,5 +8,5 @@ public interface WeeklyWorkHoursService {
  
  Optional<WeeklyWorkHours> findById(Long id);
  Optional<WeeklyWorkHours> findByCompanyName(String name);
- 
+ Optional<WeeklyWorkHours> getWeeklyHours(String company, String timeWindow, String dateStr);
 }
