@@ -1,13 +1,17 @@
 package com.notsecure.Appointees.service;
 
+import com.notsecure.Appointees.entity.CustomDays;
 import com.notsecure.Appointees.entity.DailyWorkHours;
 import com.notsecure.Appointees.entity.WeeklyWorkHours;
+import com.notsecure.Appointees.model.OutputWorkDay;
 import com.notsecure.Appointees.repository.CustomDaysRepository;
 import com.notsecure.Appointees.repository.WeeklyWorkHoursRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,17 +34,40 @@ public Optional<WeeklyWorkHours> findByCompanyName(String name) {
 
 @Override
 public Optional<WeeklyWorkHours> getWeeklyHours(String company, String timeWindow, String dateStr) {
- 
- String[] dateProvided = dateStr.split("-");
- System.out.println(dateProvided[0] + " " + dateProvided[1] + " " + dateProvided[2]);
- LocalDate date = LocalDate.of(Integer.parseInt(dateProvided[0]),Integer.parseInt(dateProvided[1]),Integer.parseInt(dateProvided[2]));
- 
+  
+  String[] dateProvided = dateStr.split("-");
+  LocalDate date = LocalDate.of(Integer.parseInt(dateProvided[0]), Integer.parseInt(dateProvided[1]), Integer.parseInt(dateProvided[2]));
+  
   if (timeWindow.equalsIgnoreCase("day")) {
-   System.out.println("Custome Day: " + customDaysRepository.findByCompany_NameAndAndServiceProviderIsNullAndDate(company,date));
-   System.out.println("Default day: " + getDailyWorkHours(findByCompanyName(company).get(),date));
-  
+    Optional<CustomDays> theDay = customDaysRepository.findByCompany_NameAndAndServiceProviderIsNullAndDate(company, date);
+    if (theDay.isPresent()) System.out.println("Custome Day: " + theDay.get());
+    else System.out.println("Default day: " + getDefaultDayWorkHours(company, date));
+    
   } else if (timeWindow.equalsIgnoreCase("week")) {
-  
+    System.out.println(date.getDayOfWeek());
+    System.out.println(date.getDayOfWeek().getValue());
+    System.out.println("Let's go to sunday");
+    date = date.minusDays(date.getDayOfWeek().getValue() % 7);
+    System.out.println("new day is " + date.getDayOfWeek() + date.toString());
+    
+    List<CustomDays> customDaysList = customDaysRepository.findByCompany_NameAndAndServiceProviderIsNullAndDateIsBetweenOrderByDate(company, date, date.plusDays(6));
+    if (!customDaysList.isEmpty()) System.out.println(customDaysList.toString());
+    
+    List<OutputWorkDay> outputWorkDayList = new ArrayList<>(7);
+    DailyWorkHours[] dailyWorkHours = mapDefaultWeeklyWorkHours(company);
+    
+    int flag = 0;
+    for (int i = 0; i < 7; i++) {
+      OutputWorkDay outputWorkDay = new OutputWorkDay(date);
+      if (flag < customDaysList.size() && customDaysList.get(flag).getDate().equals(date))
+        outputWorkDay.setDailyWorkHours(customDaysList.get(flag++).getDailyWorkHours());
+      else outputWorkDay.setDailyWorkHours(dailyWorkHours[date.getDayOfWeek().getValue()]);
+      
+      outputWorkDayList.add(outputWorkDay);
+      date = date.plusDays(1);
+    }
+    System.out.println(outputWorkDayList);
+    
   } else if (timeWindow.equalsIgnoreCase("month")) {
   
   } else if (timeWindow.equalsIgnoreCase("year")) {
@@ -52,38 +79,26 @@ public Optional<WeeklyWorkHours> getWeeklyHours(String company, String timeWindo
   return Optional.empty();
 }
 
-private DailyWorkHours getDailyWorkHours(WeeklyWorkHours weeklyWorkHours, LocalDate date){
-  DailyWorkHours dailyWorkHours = new DailyWorkHours();
-  if(weeklyWorkHours != null){
-    System.out.println(date.getDayOfWeek());
-    switch (date.getDayOfWeek()){
-      case MONDAY:
-        dailyWorkHours = weeklyWorkHours.getMonday();
-        break;
-      case TUESDAY:
-        dailyWorkHours = weeklyWorkHours.getTuesday();
-        break;
-      case WEDNESDAY:
-        dailyWorkHours = weeklyWorkHours.getWednesday();
-        break;
-      case THURSDAY:
-        dailyWorkHours = weeklyWorkHours.getThursday();
-        break;
-      case FRIDAY:
-        dailyWorkHours = weeklyWorkHours.getFriday();
-        break;
-      case SATURDAY:
-        dailyWorkHours = weeklyWorkHours.getSaturday();
-        break;
-      case SUNDAY:
-        dailyWorkHours = weeklyWorkHours.getSunday();
-        break;
-      default:
-        System.out.println("offf");
-    }
-  }else return null;
-  return dailyWorkHours;
+private DailyWorkHours[] mapDefaultWeeklyWorkHours(String company) {
+  DailyWorkHours[] dailyWorkHoursArr = new DailyWorkHours[8];
+  Optional<WeeklyWorkHours> weeklyWorkHours = weeklyWorkHoursRepository.findByCompany_Name(company);
+  if (weeklyWorkHours.isPresent()) {
+    WeeklyWorkHours workDays = weeklyWorkHours.get();
+    dailyWorkHoursArr[0] = workDays.getSunday();
+    dailyWorkHoursArr[1] = workDays.getMonday();
+    dailyWorkHoursArr[2] = workDays.getTuesday();
+    dailyWorkHoursArr[3] = workDays.getWednesday();
+    dailyWorkHoursArr[4] = workDays.getThursday();
+    dailyWorkHoursArr[5] = workDays.getFriday();
+    dailyWorkHoursArr[6] = workDays.getSaturday();
+    dailyWorkHoursArr[7] = workDays.getSunday();
+  }
+  return dailyWorkHoursArr;
 }
 
+private DailyWorkHours getDefaultDayWorkHours(String company, LocalDate date) {
+  DailyWorkHours[] dailyWorkHoursArr = mapDefaultWeeklyWorkHours(company);
+  return dailyWorkHoursArr[date.getDayOfWeek().getValue()];
+}
 
 }
