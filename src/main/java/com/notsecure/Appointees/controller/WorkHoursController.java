@@ -2,6 +2,7 @@ package com.notsecure.Appointees.controller;
 
 import com.notsecure.Appointees.entity.DailyWorkHours;
 import com.notsecure.Appointees.entity.WeeklyWorkHours;
+import com.notsecure.Appointees.model.OutputWorkDay;
 import com.notsecure.Appointees.service.WeeklyWorkHoursService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 
 @RestController
 public class WorkHoursController {
@@ -20,11 +22,11 @@ public class WorkHoursController {
   WeeklyWorkHoursService weeklyWorkHoursService;
 
 @RequestMapping("/{company}/work-hours/{timeWindow}/{date}")
-public String workHours(@PathVariable String company, @PathVariable String timeWindow, @PathVariable String date){
+public List<OutputWorkDay> workHours(@PathVariable String company, @PathVariable String timeWindow, @PathVariable String date){
   
-  weeklyWorkHoursService.getWeeklyHours(company,timeWindow,date);
+  List<OutputWorkDay> outputWorkDays= weeklyWorkHoursService.getWeeklyHours(company,timeWindow,date);
 
-  return "Arrays.toString(dateProvided)";
+  return outputWorkDays;
 }
 
 
