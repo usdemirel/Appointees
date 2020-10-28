@@ -33,76 +33,48 @@ public Optional<WeeklyWorkHours> findByCompanyName(String name) {
 }
 
 @Override
-public Optional<WeeklyWorkHours> getWeeklyHours(String company, String timeWindow, String dateStr) {
+public List<OutputWorkDay> getWeeklyHours(String company, String timeWindow, String dateStr) {
   
   String[] dateProvided = dateStr.split("-");
   LocalDate date = LocalDate.of(Integer.parseInt(dateProvided[0]), Integer.parseInt(dateProvided[1]), Integer.parseInt(dateProvided[2]));
+  DailyWorkHours[] dailyWorkHoursArr = mapDefaultWeeklyWorkHours(company);
+  List<OutputWorkDay> outputWorkDayList = null;
+  
   
   if (timeWindow.equalsIgnoreCase("day")) { //////// day ///////////
     Optional<CustomDays> theDay = customDaysRepository.findByCompany_NameAndAndServiceProviderIsNullAndDate(company, date);
-    if (theDay.isPresent()) System.out.println("Custome Day: " + theDay.get());
-    else System.out.println("Default day: " + getDefaultDayWorkHours(company, date));
+    if (theDay.isPresent()) System.out.println("Custom Day: " + theDay.get());
+    else System.out.println("Default day: " + dailyWorkHoursArr[date.getDayOfWeek().getValue()]);
+    new ArrayList<>(1);
     
-  } else if (timeWindow.equalsIgnoreCase("week")) { ///////week///////////
-    System.out.println(date.getDayOfWeek());
-    System.out.println(date.getDayOfWeek().getValue());
-    System.out.println("Let's go to sunday");
-    date = date.minusDays(date.getDayOfWeek().getValue() % 7);
-    System.out.println("new day is " + date.getDayOfWeek() + date.toString());
-    
-    List<CustomDays> customDaysList = customDaysRepository.findByCompany_NameAndAndServiceProviderIsNullAndDateIsBetweenOrderByDate(company, date, date.plusDays(6));
-    if (!customDaysList.isEmpty()) System.out.println(customDaysList.toString());
-    
-    List<OutputWorkDay> outputWorkDayList = new ArrayList<>(7);
-    DailyWorkHours[] dailyWorkHours = mapDefaultWeeklyWorkHours(company);
-    
-    int flag = 0;
-    for (int i = 0; i < 7; i++) {
-      OutputWorkDay outputWorkDay = new OutputWorkDay(date);
-      if (flag < customDaysList.size() && customDaysList.get(flag).getDate().equals(date))
-        outputWorkDay.setDailyWorkHours(customDaysList.get(flag++).getDailyWorkHours());
-      else outputWorkDay.setDailyWorkHours(dailyWorkHours[date.getDayOfWeek().getValue()]);
-      
-      outputWorkDayList.add(outputWorkDay);
-      date = date.plusDays(1);
-    }
-    System.out.println(outputWorkDayList);
-    
-  } else if (timeWindow.equalsIgnoreCase("month")) { //////////month//////
-    date = date.withDayOfMonth(1);
-    
-    System.out.println("new day is " + date.getDayOfWeek() + date.toString());
+  } else if (timeWindow.equalsIgnoreCase("week")) {
+    outputWorkDayList = getDays(dailyWorkHoursArr, company, date.minusDays(date.getDayOfWeek().getValue() % 7), timeWindow);
+  } else if (timeWindow.equalsIgnoreCase("month")) {
+    outputWorkDayList = getDays(dailyWorkHoursArr,company,date.withDayOfMonth(1),timeWindow);
+  } else if (timeWindow.equalsIgnoreCase("year")) {
+    outputWorkDayList = getDays(dailyWorkHoursArr,company,date.withDayOfYear(1),timeWindow);
+  }
+  System.out.println(outputWorkDayList);
+  return outputWorkDayList;
+}
+
+private List<OutputWorkDay> getDays(DailyWorkHours[] dailyWorkHoursArr,String company, LocalDate date, String timeWindow){
+  int flag = 0;
+  int plusDay = timeWindow.equals("day")?0:timeWindow.equals("week")?7:timeWindow.equals("month")?31:date.isLeapYear()?366:365;
+  List<CustomDays> customDaysList = customDaysRepository.findByCompany_NameAndAndServiceProviderIsNullAndDateIsBetweenOrderByDate(company, date, date.plusDays(plusDay));
+  List<OutputWorkDay> outputWorkDayList = new ArrayList<>(plusDay);
   
-    List<CustomDays> customDaysList = customDaysRepository.findByCompany_NameAndAndServiceProviderIsNullAndDateIsBetweenOrderByDate(company, date, date.plusDays(31));
-    if (!customDaysList.isEmpty()) System.out.println(customDaysList.toString());
-  
-    List<OutputWorkDay> outputWorkDayList = new ArrayList<>(31);
-    DailyWorkHours[] dailyWorkHours = mapDefaultWeeklyWorkHours(company);
-  
-    int flag = 0;
-    for (int i = 0; i < 31; i++) {
-      OutputWorkDay outputWorkDay = new OutputWorkDay(date);
-      if (flag < customDaysList.size() && customDaysList.get(flag).getDate().equals(date))
-        outputWorkDay.setDailyWorkHours(customDaysList.get(flag++).getDailyWorkHours());
-      else outputWorkDay.setDailyWorkHours(dailyWorkHours[date.getDayOfWeek().getValue()]);
-    
-      outputWorkDayList.add(outputWorkDay);
-      if(date.getMonthValue() != date.plusDays(1).getMonthValue()){
-        System.out.println("I am breaking the loop now!");
-        break;
-      }
-      date = date.plusDays(1);
-    }
-    System.out.println("month: "+ outputWorkDayList);
-    
-  
-  } else if (timeWindow.equalsIgnoreCase("year")) { //////////// year ///////////////
-  
-  } else {
-    return Optional.empty();
+  for (int i = 0; i < plusDay; i++) {
+    OutputWorkDay outputWorkDay = new OutputWorkDay(date);
+    if (flag < customDaysList.size() && customDaysList.get(flag).getDate().equals(date))
+      outputWorkDay.setDailyWorkHours(customDaysList.get(flag++).getDailyWorkHours());
+    else outputWorkDay.setDailyWorkHours(dailyWorkHoursArr[date.getDayOfWeek().getValue()]);
+    outputWorkDayList.add(outputWorkDay);
+    if(timeWindow.equals("month") && date.getMonthValue() != date.plusDays(1).getMonthValue()) break;
+    else date = date.plusDays(1);
   }
   
-  return Optional.empty();
+  return outputWorkDayList;
 }
 
 private DailyWorkHours[] mapDefaultWeeklyWorkHours(String company) {
@@ -120,11 +92,6 @@ private DailyWorkHours[] mapDefaultWeeklyWorkHours(String company) {
     dailyWorkHoursArr[7] = workDays.getSunday();
   }
   return dailyWorkHoursArr;
-}
-
-private DailyWorkHours getDefaultDayWorkHours(String company, LocalDate date) {
-  DailyWorkHours[] dailyWorkHoursArr = mapDefaultWeeklyWorkHours(company);
-  return dailyWorkHoursArr[date.getDayOfWeek().getValue()];
 }
 
 }
