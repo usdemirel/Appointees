@@ -1,7 +1,5 @@
 package com.notsecure.Appointees.controller;
 
-import com.notsecure.Appointees.entity.DailyWorkHours;
-import com.notsecure.Appointees.entity.WeeklyWorkHours;
 import com.notsecure.Appointees.model.OutputWorkDay;
 import com.notsecure.Appointees.service.WeeklyWorkHoursService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
