@@ -38,12 +38,12 @@ public Optional<WeeklyWorkHours> getWeeklyHours(String company, String timeWindo
   String[] dateProvided = dateStr.split("-");
   LocalDate date = LocalDate.of(Integer.parseInt(dateProvided[0]), Integer.parseInt(dateProvided[1]), Integer.parseInt(dateProvided[2]));
   
-  if (timeWindow.equalsIgnoreCase("day")) {
+  if (timeWindow.equalsIgnoreCase("day")) { //////// day ///////////
     Optional<CustomDays> theDay = customDaysRepository.findByCompany_NameAndAndServiceProviderIsNullAndDate(company, date);
     if (theDay.isPresent()) System.out.println("Custome Day: " + theDay.get());
     else System.out.println("Default day: " + getDefaultDayWorkHours(company, date));
     
-  } else if (timeWindow.equalsIgnoreCase("week")) {
+  } else if (timeWindow.equalsIgnoreCase("week")) { ///////week///////////
     System.out.println(date.getDayOfWeek());
     System.out.println(date.getDayOfWeek().getValue());
     System.out.println("Let's go to sunday");
@@ -68,9 +68,35 @@ public Optional<WeeklyWorkHours> getWeeklyHours(String company, String timeWindo
     }
     System.out.println(outputWorkDayList);
     
-  } else if (timeWindow.equalsIgnoreCase("month")) {
+  } else if (timeWindow.equalsIgnoreCase("month")) { //////////month//////
+    date = date.withDayOfMonth(1);
+    
+    System.out.println("new day is " + date.getDayOfWeek() + date.toString());
   
-  } else if (timeWindow.equalsIgnoreCase("year")) {
+    List<CustomDays> customDaysList = customDaysRepository.findByCompany_NameAndAndServiceProviderIsNullAndDateIsBetweenOrderByDate(company, date, date.plusDays(31));
+    if (!customDaysList.isEmpty()) System.out.println(customDaysList.toString());
+  
+    List<OutputWorkDay> outputWorkDayList = new ArrayList<>(31);
+    DailyWorkHours[] dailyWorkHours = mapDefaultWeeklyWorkHours(company);
+  
+    int flag = 0;
+    for (int i = 0; i < 31; i++) {
+      OutputWorkDay outputWorkDay = new OutputWorkDay(date);
+      if (flag < customDaysList.size() && customDaysList.get(flag).getDate().equals(date))
+        outputWorkDay.setDailyWorkHours(customDaysList.get(flag++).getDailyWorkHours());
+      else outputWorkDay.setDailyWorkHours(dailyWorkHours[date.getDayOfWeek().getValue()]);
+    
+      outputWorkDayList.add(outputWorkDay);
+      if(date.getMonthValue() != date.plusDays(1).getMonthValue()){
+        System.out.println("I am breaking the loop now!");
+        break;
+      }
+      date = date.plusDays(1);
+    }
+    System.out.println("month: "+ outputWorkDayList);
+    
+  
+  } else if (timeWindow.equalsIgnoreCase("year")) { //////////// year ///////////////
   
   } else {
     return Optional.empty();
