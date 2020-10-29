@@ -15,6 +15,9 @@ private Long id;
 private Company company;
 @OneToOne
 @Nullable
+private Service service; //if null, it is a custom day for the company
+@OneToOne
+@Nullable
 private ServiceProvider serviceProvider; //if null, it is a custom day for the company
 @OneToOne
 @Nullable
@@ -31,6 +34,15 @@ public Long getId() {
 
 public void setId(Long id) {
  this.id = id;
+}
+
+@Nullable
+public Service getService() {
+ return service;
+}
+
+public void setService(@Nullable Service service) {
+ this.service = service;
 }
 
 public Company getCompany() {

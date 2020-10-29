@@ -16,6 +16,8 @@ private boolean isRecurring;
  private LocalDateTime inDateTime;
  private LocalDateTime outDateTime;
  @OneToOne
+ private Company company;
+ @OneToOne
  private Service service;
  @OneToOne
  private ServiceProvider serviceProvider;
@@ -31,6 +33,14 @@ public Long getId() {
 
 public void setId(Long id) {
  this.id = id;
+}
+
+public Company getCompany() {
+ return company;
+}
+
+public void setCompany(Company company) {
+ this.company = company;
 }
 
 public LocalDateTime getRecordDateTime() {

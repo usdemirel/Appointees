@@ -13,7 +13,7 @@ public class OutputWorkDay {
   public OutputWorkDay(LocalDate date){
     this.date = date;
     this.Day = date.getDayOfWeek().name();
-    this.DayValue = date.getDayOfWeek().getValue();
+    this.DayValue = date.getDayOfWeek().getValue()%7;
   }
 
 public OutputWorkDay(LocalDate date, DailyWorkHours dailyWorkHours, String day, int dayValue) {

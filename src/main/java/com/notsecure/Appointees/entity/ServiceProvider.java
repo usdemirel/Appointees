@@ -1,18 +1,39 @@
 package com.notsecure.Appointees.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class ServiceProvider {
 @Id
 private String email;
 private String name;
+private String displayName;
 private String description;
 private String phone;
 private String password;
+@OneToMany
+private List<Service> service;
+@OneToOne
+Company company;
 
 public ServiceProvider() {
+}
+
+public List<Service> getService() {
+ return service;
+}
+
+public void setService(List<Service> service) {
+ this.service = service;
+}
+
+public Company getCompany() {
+ return company;
+}
+
+public void setCompany(Company company) {
+ this.company = company;
 }
 
 public String getEmail() {
@@ -29,6 +50,14 @@ public String getName() {
 
 public void setName(String name) {
  this.name = name;
+}
+
+public String getDisplayName() {
+ return displayName;
+}
+
+public void setDisplayName(String displayName) {
+ this.displayName = displayName;
 }
 
 public String getDescription() {

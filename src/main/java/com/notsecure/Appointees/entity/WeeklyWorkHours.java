@@ -9,10 +9,14 @@ public class WeeklyWorkHours {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
-
 @OneToOne
 private Company company;
-
+@OneToOne
+@Nullable
+private ServiceProvider serviceProvider;
+@OneToOne
+@Nullable
+private Service service;
 @Nullable
 @OneToOne
 private DailyWorkHours sunday;
@@ -44,6 +48,32 @@ public Long getId() {
 
 public void setId(Long id) {
  this.id = id;
+}
+
+public Company getCompany() {
+ return company;
+}
+
+public void setCompany(Company company) {
+ this.company = company;
+}
+
+@Nullable
+public ServiceProvider getServiceProvider() {
+ return serviceProvider;
+}
+
+public void setServiceProvider(@Nullable ServiceProvider serviceProvider) {
+ this.serviceProvider = serviceProvider;
+}
+
+@Nullable
+public Service getService() {
+ return service;
+}
+
+public void setService(@Nullable Service service) {
+ this.service = service;
 }
 
 @Nullable

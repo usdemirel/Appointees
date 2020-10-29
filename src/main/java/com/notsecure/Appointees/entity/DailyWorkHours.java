@@ -14,6 +14,11 @@ private List<WorkHours> workHours;
 public DailyWorkHours() {
 }
 
+public DailyWorkHours(Long id, List<WorkHours> workHours) {
+ this.id = id;
+ this.workHours = workHours;
+}
+
 public Long getId() {
  return id;
 }

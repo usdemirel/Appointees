@@ -1,9 +1,6 @@
 package com.notsecure.Appointees.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Service {
@@ -19,8 +16,18 @@ public class Service {
  private int duration;
  private int bufferTime;
  private boolean isDurationVisibleOnBP;
+ @OneToOne
+ Company company;
 
 public Service() {
+}
+
+public Company getCompany() {
+ return company;
+}
+
+public void setCompany(Company company) {
+ this.company = company;
 }
 
 public Long getId() {
