@@ -24,10 +24,10 @@ public List<OutputWorkDay> getDefaultWorkHours(@PathVariable String company, @Pa
 
 @RequestMapping("/{company}/work-hours/{timeWindow}/{date}")
 public List<OutputWorkDay> workHours(@PathVariable String company, @PathVariable String timeWindow, @PathVariable String date) {
-   
-   List<OutputWorkDay> outputWorkDays = weeklyWorkHoursService.getWeeklyHours(company, timeWindow, date);
-   
-   return outputWorkDays;
+
+//   List<OutputWorkDay> outputWorkDays = weeklyWorkHoursService.getWeeklyHours(company, timeWindow, date);
+   weeklyWorkHoursService.getServiceWorkHours("a",12L,"a",LocalDate.now());
+   return null;
 }
 
 ///amazon/work-hours/service-id/(dayORweekORmonthORyear)/2018-05-20

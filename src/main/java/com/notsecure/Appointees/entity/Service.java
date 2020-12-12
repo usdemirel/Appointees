@@ -1,112 +1,40 @@
 package com.notsecure.Appointees.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Service {
- @Id
- @GeneratedValue(strategy = GenerationType.AUTO)
- private Long id;
- private String name;
- private String description;
- private boolean isServiceAvailableOnBP;
- private double price;
- private boolean isPriceAvailableOnBP;
- private String directLinkToService;
- private int duration;
- private int bufferTime;
- private boolean isDurationVisibleOnBP;
- @OneToOne
- Company company;
+@Id
+@GeneratedValue(strategy = GenerationType.AUTO)
+private Long id;
+private String name;
+@Column(length = 1000)
+private String description;
+private boolean isServiceAvailableOnBP;
+private Double price;
+private boolean isPriceAvailableOnBP;
+private String directLinkToService; //?
+private int duration;
+private int bufferTime;
+private boolean isDurationVisibleOnBP;
+// This is to say if any branch can copy the service from the company or a branch.
+private boolean serviceInfoPublicToAllBranches;
+private int allowedCancellationTimeWindowPriorToAppointment; // should be entered in minutes;
+/*For example, this value can be set to 90 at max to limit clients setting the appointment for 90 days later at most*/
+private int allowedDaysInAdvanceAppointmentBookings;
+@OneToOne
+Company company;
+@OneToOne @Nullable
+Branch branch; // Company can create a service for branches to copy. At that time branch will be null.
 
-public Service() {
-}
 
-public Company getCompany() {
- return company;
-}
 
-public void setCompany(Company company) {
- this.company = company;
-}
-
-public Long getId() {
- return id;
-}
-
-public void setId(Long id) {
- this.id = id;
-}
-
-public String getName() {
- return name;
-}
-
-public void setName(String name) {
- this.name = name;
-}
-
-public String getDescription() {
- return description;
-}
-
-public void setDescription(String description) {
- this.description = description;
-}
-
-public boolean isServiceAvailableOnBP() {
- return isServiceAvailableOnBP;
-}
-
-public void setServiceAvailableOnBP(boolean serviceAvailableOnBP) {
- isServiceAvailableOnBP = serviceAvailableOnBP;
-}
-
-public double getPrice() {
- return price;
-}
-
-public void setPrice(double price) {
- this.price = price;
-}
-
-public boolean isPriceAvailableOnBP() {
- return isPriceAvailableOnBP;
-}
-
-public void setPriceAvailableOnBP(boolean priceAvailableOnBP) {
- isPriceAvailableOnBP = priceAvailableOnBP;
-}
-
-public String getDirectLinkToService() {
- return directLinkToService;
-}
-
-public void setDirectLinkToService(String directLinkToService) {
- this.directLinkToService = directLinkToService;
-}
-
-public int getDuration() {
- return duration;
-}
-
-public void setDuration(int duration) {
- this.duration = duration;
-}
-
-public int getBufferTime() {
- return bufferTime;
-}
-
-public void setBufferTime(int bufferTime) {
- this.bufferTime = bufferTime;
-}
-
-public boolean isDurationVisibleOnBP() {
- return isDurationVisibleOnBP;
-}
-
-public void setDurationVisibleOnBP(boolean durationVisibleOnBP) {
- isDurationVisibleOnBP = durationVisibleOnBP;
-}
 }

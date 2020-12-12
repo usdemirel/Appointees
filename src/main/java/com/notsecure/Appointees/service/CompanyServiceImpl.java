@@ -5,12 +5,10 @@ import com.notsecure.Appointees.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class CompanyServiceImpl implements CompanyService{
- 
- @Autowired
+
+@Autowired
 CompanyRepository companyRepository;
 
 @Override
@@ -20,7 +18,8 @@ public Company findById(Long id) {
 
 @Override
 public Company findByName(String name) {
- return companyRepository.findByName(name).get();
+// return companyRepository.findByName(name).get();
+ return null;
 }
 
 }
