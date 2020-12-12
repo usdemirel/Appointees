@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
 @Service
-public class MonthlyBusinessWordDaysOperationsImpl implements MonthlyBusinessWorkDaysOperations{
+public class MonthlyBusinessWorkDaysOperationsImpl implements MonthlyBusinessWorkDaysOperations{
 @Override
 public String createMonthlyData(LocalDate firstDay, WeeklyDefaultWorkHours weeklyDefaultWorkHours, CustomDays customDays) {
    return null;

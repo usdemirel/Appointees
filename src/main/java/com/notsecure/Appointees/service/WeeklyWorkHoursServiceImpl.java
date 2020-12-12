@@ -44,7 +44,6 @@ public List<OutputWorkDay> getDefaultDays(String company, int day) {
 
 @Override
 public List<OutputWorkDay> getServiceWorkHours(String company, long serviceId, String timeWindow, LocalDate date) {
-   System.out.println(textOperations.doExample1("try"));
    return null;
 }
 
