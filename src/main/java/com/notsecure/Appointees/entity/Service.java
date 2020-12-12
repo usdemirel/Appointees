@@ -15,16 +15,17 @@ public class Service {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
-private String name;
+private String name; // private name for the company
+private String servicePageTitle; // public for clients
 @Column(length = 1000)
 private String description;
-private boolean isServiceAvailableOnBP;
+private boolean serviceAvailableOnBP;
 private Double price;
-private boolean isPriceAvailableOnBP;
-private String directLinkToService; //?
+private boolean priceAvailableOnBP;
+private String imageLink; //?
 private int duration;
 private int bufferTime;
-private boolean isDurationVisibleOnBP;
+private boolean durationVisibleOnBP;
 // This is to say if any branch can copy the service from the company or a branch.
 private boolean serviceInfoPublicToAllBranches;
 private int allowedCancellationTimeWindowPriorToAppointment; // should be entered in minutes;

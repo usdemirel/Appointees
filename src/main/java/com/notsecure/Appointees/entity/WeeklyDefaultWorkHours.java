@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -15,6 +16,7 @@ public class WeeklyDefaultWorkHours {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
+LocalDate effectiveBy = LocalDate.now(); // the date entered is exclusive
 @OneToOne
 private Company company;
 @OneToOne
