@@ -8,5 +8,6 @@ import java.util.Optional;
 public interface CompanyService {
 Optional<Company> findCompanyById(Long companyId);
 Optional<Company> findCompanyByName(String name);
+Company save(Company company);
 
 }

@@ -26,10 +26,13 @@ public Optional<Company> findCompanyById(Long companyId) {
 
 @Override
 public Optional<Company> findCompanyByName(String name) {
-// return companyRepository.findByName(name).get();
- return null;
+ return companyRepository.findCompanyByBusinessName(name);
 }
 
+@Override
+public Company save(Company company) {
+ return companyRepository.save(company);
+}
 
 
 }

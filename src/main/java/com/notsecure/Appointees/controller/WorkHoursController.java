@@ -2,16 +2,26 @@ package com.notsecure.Appointees.controller;
 
 import com.notsecure.Appointees.model.OutputWorkDay;
 import com.notsecure.Appointees.service.WeeklyWorkHoursService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.time.LocalDate;
 import java.util.List;
 
+/*
+* OLD Version
+* Should be checked to see if there is anything useful.
+* If not, can be deleted safely.
+* */
+
 @RestController
 public class WorkHoursController {
+
+Logger logger = LoggerFactory.getLogger(WorkHoursController.class);
+
 @Autowired
 WeeklyWorkHoursService weeklyWorkHoursService;
 

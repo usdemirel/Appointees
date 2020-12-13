@@ -1,11 +1,15 @@
 package com.notsecure.Appointees.controller;
 
 import com.notsecure.Appointees.entity.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ServiceController {
+Logger logger = LoggerFactory.getLogger(ServiceController.class);
+
 
 @RequestMapping("/admin/{companyId}/services/deactive")
 public ResponseEntity<Service> getDeactivateServices(@PathVariable Long companyId) {
@@ -41,9 +45,6 @@ public ResponseEntity<Service> deactivateService(@PathVariable Long companyId, @
 public ResponseEntity<Service> updateService(@PathVariable Long companyId, @RequestBody Service service) {
    return null;
 }
-
-
-
 
 
 }

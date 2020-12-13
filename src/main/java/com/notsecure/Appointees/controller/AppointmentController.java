@@ -5,7 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ServiceProviderController {
-Logger logger = LoggerFactory.getLogger(ServiceProviderController.class);
-
+public class AppointmentController {
+   Logger logger = LoggerFactory.getLogger(AppointmentController.class);
+   
+   
 }
