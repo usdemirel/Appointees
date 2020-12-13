@@ -1,5 +1,10 @@
 package com.notsecure.Appointees.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +21,9 @@ public class PublicInfo {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
+@JsonProperty("dateCreated") //for serializing and deserializing -sd
 private LocalDateTime dateCreated;
+
 
 private String businessName;
 private String bookingPageTitle;
@@ -28,8 +35,9 @@ private String imageUrl;
 private String websiteLink;
 private String customerSupportEmail;
 private String customerSupportPhone;
+private boolean activeAccount;
 
-@OneToOne
+@OneToOne (cascade = CascadeType.ALL)
 private Address address;
 
 }

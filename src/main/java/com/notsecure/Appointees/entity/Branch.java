@@ -1,28 +1,28 @@
 package com.notsecure.Appointees.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 public class Branch extends PublicInfo{
-//@Id
-//@GeneratedValue(strategy = GenerationType.AUTO)
-//private Long id;
-//@OneToOne
-//private PublicInfo publicInfo;
 private String zoneId;
-@ManyToOne
+@JsonIgnore // Due to LAZY fetching caused issues, I've added the annotation SD - 12/12/2020
+@ManyToOne (fetch = FetchType.LAZY)
 Company company;
 private boolean separateBilling;
-@OneToOne
+@OneToOne (fetch = FetchType.LAZY)
 private AccountInfo accountInfo; // if null, then payments are handled by the company.
+
+
 
 }

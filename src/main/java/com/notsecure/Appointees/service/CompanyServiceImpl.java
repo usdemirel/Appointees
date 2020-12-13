@@ -1,9 +1,13 @@
 package com.notsecure.Appointees.service;
 
+import com.notsecure.Appointees.entity.Branch;
 import com.notsecure.Appointees.entity.Company;
+import com.notsecure.Appointees.repository.BranchRepository;
 import com.notsecure.Appointees.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CompanyServiceImpl implements CompanyService{
@@ -11,15 +15,21 @@ public class CompanyServiceImpl implements CompanyService{
 @Autowired
 CompanyRepository companyRepository;
 
+@Autowired
+BranchRepository branchRepository;
+
+
 @Override
-public Company findById(Long id) {
- return (Company) companyRepository.findById(id).get();
+public Optional<Company> findCompanyById(Long companyId) {
+ return companyRepository.findById(companyId);
 }
 
 @Override
-public Company findByName(String name) {
+public Optional<Company> findCompanyByName(String name) {
 // return companyRepository.findByName(name).get();
  return null;
 }
+
+
 
 }
