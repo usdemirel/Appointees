@@ -37,7 +37,7 @@ public ResponseEntity<List<Branch>> getBranches(@PathVariable Long companyId) th
 }
 
 @RequestMapping("/public/{companyId}/public-info")
-public ResponseEntity<PublicInfo> getPublicInfo(@PathVariable Long companyId) throws NotFoundException {
+public ResponseEntity<Company> getPublicInfo(@PathVariable Long companyId) throws NotFoundException {
    Optional<Company> company = companyService.findCompanyById(companyId);
    if (!company.isPresent()) throw new NotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
    return ResponseEntity.status(HttpStatus.OK).body(company.get());

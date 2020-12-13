@@ -48,14 +48,12 @@ SELECT * FROM WEEKLY_DEFAULT_WORK_HOURS;
 ID  	EFFECTIVE_BY  	FRIDAY  	                  MONDAY  	                  SATURDAY  	   SUNDAY  	   THURSDAY  	            TUESDAY  	            WEDNESDAY  	            BRANCH_ID  	COMPANY_ID  	SERVICE_ID  	SERVICE_PROVIDER_ID
 1600	2021-04-30	   08:00,12:00,13:00,18:00	   08:00,12:00,13:00,18:01	   08:00,13:00	   null	      08:00,12:00,13:00,18:04	08:00,12:00,13:00,18:05	08:00,12:00,13:00,18:06	null	      500	         null	         null
 1601	2021-04-30	   08:00,16:00	               default	                  default	      default	   default	               default	               default	               300	      500	         null	         null
-1602	2021-04-30	   08:00,12:00	               08:00,12:00	               null	         null	      08:00,12:00	            default	               default	               300	      500	         1000	         1100
+1602	2020-12-25	   08:00,12:00	               08:00,12:00	               null	         null	      08:00,12:00	            default	               default	               300	      500	         1000	         1100
 1603	2021-04-30	   12:30,16:00                12:30,16:00	               default        default	   12:00,14:00	            null	                  null	                  300	      500	         1001	         1100
 
 ID  	CUSTOM_DATE  	DAILY_WORK_HOURS  	DATE_CREATED  	      REASON  	                     BRANCH_ID  	COMPANY_ID  	SERVICE_PROVIDER_ID
 600	2020-12-30	   08:00,13:00	         2020-12-10 11:18:00	EARLY LEAVE BEFORE NEW YEAR	300	      500	         null
 601	2020-12-25	   12:00,20:00	         2020-12-10 11:18:00	CHRISTMAS SCHEDULE -Busy-	   301	      500	         null
-
-
 
  */
 
