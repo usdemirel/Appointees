@@ -1,17 +1,13 @@
-package com.notsecure.Appointees.repository;
+package com.notsecure.Appointees.service;
 
 import com.notsecure.Appointees.entity.CustomDays;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
-@Repository
-public interface CustomDaysRepository extends CrudRepository<CustomDays, Long> {
-//  Optional<CustomDays> findByCompany_NameAndAndServiceProviderIsNullAndDate(String name, LocalDate date);
+public interface CustomDaysService {
 List<CustomDays> findByCompanyIdAndServiceProviderIsNullAndCustomDateIsBetweenOrderByCustomDate(Long companyId, LocalDate in, LocalDate out);
 List<CustomDays> findByCompanyIdAndServiceProviderIsNullAndCustomDateIsBetweenAndBranchIdOrBranchIsNullOrderByCustomDate(Long companyId, LocalDate in, LocalDate out, Long branchId);
+
 
 }

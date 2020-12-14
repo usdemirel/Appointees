@@ -3,7 +3,7 @@ package com.notsecure.Appointees.service;
 import com.notsecure.Appointees.entity.WeeklyDefaultWorkHours;
 import com.notsecure.Appointees.model.OutputWorkDay;
 import com.notsecure.Appointees.repository.CustomDaysRepository;
-import com.notsecure.Appointees.repository.WeeklyWorkHoursRepository;
+import com.notsecure.Appointees.repository.WeeklyDefaultWorkHoursRepository;
 import com.notsecure.Appointees.utilityservices.TextOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class WeeklyWorkHoursServiceImpl implements WeeklyWorkHoursService {
+public class WeeklyDefaultWorkHoursServiceImpl implements WeeklyDefaultWorkHoursService {
 
 @Autowired
-WeeklyWorkHoursRepository weeklyWorkHoursRepository;
+WeeklyDefaultWorkHoursRepository weeklyDefaultWorkHoursRepository;
 @Autowired
 CustomDaysRepository customDaysRepository;
 @Autowired
@@ -27,25 +27,17 @@ public Optional<WeeklyDefaultWorkHours> findById(Long id) {
    return Optional.empty();
 }
 
+
 @Override
-public Optional<WeeklyDefaultWorkHours> findByCompanyName(String name) {
-   return Optional.empty();
+public List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAndServiceProviderIsNullAndCompanyId(Long companyId) {
+   return weeklyDefaultWorkHoursRepository.findWeeklyDefaultWorkHoursByServiceIsNullAndServiceProviderIsNullAndCompanyId(companyId);
 }
 
 @Override
-public List<OutputWorkDay> getWeeklyHours(String company, String timeWindow, String dateStr) {
-   return null;
+public List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAndServiceProviderIsNullAndCompanyIdAndEffectiveByIsAfterOrderByEffectiveBy(Long companyId, LocalDate lastDayOfMonth) {
+   return weeklyDefaultWorkHoursRepository.findWeeklyDefaultWorkHoursByServiceIsNullAndServiceProviderIsNullAndCompanyIdAndEffectiveByIsAfterOrderByEffectiveBy(companyId, lastDayOfMonth.minusDays(1));
 }
 
-@Override
-public List<OutputWorkDay> getDefaultDays(String company, int day) {
-   return null;
-}
-
-@Override
-public List<OutputWorkDay> getServiceWorkHours(String company, long serviceId, String timeWindow, LocalDate date) {
-   return null;
-}
 
 //@Override
 //public Optional<WeeklyWorkHours> findById(Long id) {

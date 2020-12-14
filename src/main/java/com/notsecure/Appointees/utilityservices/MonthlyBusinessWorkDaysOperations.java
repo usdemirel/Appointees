@@ -2,8 +2,10 @@ package com.notsecure.Appointees.utilityservices;
 
 import com.notsecure.Appointees.entity.CustomDays;
 import com.notsecure.Appointees.entity.WeeklyDefaultWorkHours;
+import javassist.NotFoundException;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 /*
@@ -16,7 +18,7 @@ import java.time.LocalDate;
  */
 public interface MonthlyBusinessWorkDaysOperations {
 
-public String createMonthlyData(LocalDate firstDay, WeeklyDefaultWorkHours weeklyDefaultWorkHours, CustomDays customDays);
+public String createMonthlyData(LocalDate firstDay, List<WeeklyDefaultWorkHours> weeklyDefaultWorkHours, List<CustomDays> customDays) throws NotFoundException;
 public String updateADayInMonthlyData(String oldMonthlyData, LocalDate dateToBeChanged, int newValue);
 public int retrieveADay(LocalDate date);
 //Sunday:0, Monday:1,...,Saturday:6

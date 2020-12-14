@@ -4,8 +4,11 @@ import com.notsecure.Appointees.entity.WeeklyDefaultWorkHours;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Repository
-public interface WeeklyWorkHoursRepository extends CrudRepository<WeeklyDefaultWorkHours, Long> {
+public interface WeeklyDefaultWorkHoursRepository extends CrudRepository<WeeklyDefaultWorkHours, Long> {
 // This one gets default weekly service hours for the company
 //Optional<WeeklyWorkHours> findWeeklyWorkHoursByCompany_NameAndServiceIsNullAndServiceProviderIsNull(String name);
 // This one gets default weekly service hours. If the result is empty, then, we should take the company's weekly hours by default.
@@ -16,5 +19,8 @@ public interface WeeklyWorkHoursRepository extends CrudRepository<WeeklyDefaultW
 //Optional<WeeklyWorkHours> findWeeklyWorkHoursByCompany_NameAndService_IdAndServiceProvider_Email(String name, Long serviceId, String email);
 // This one gets a specific service provider's default weekly hours for all registered services.
 //List<WeeklyWorkHours> findWeeklyWorkHoursByCompany_NameAndServiceIsNotNullAndServiceProvider_Email(String name, String email);
+
+List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAndServiceProviderIsNullAndCompanyId(Long companyId);
+List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAndServiceProviderIsNullAndCompanyIdAndEffectiveByIsAfterOrderByEffectiveBy(Long companyId, LocalDate lastDayOfMonth);
 
 }

@@ -3,6 +3,7 @@ package com.notsecure.Appointees.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class WeeklyDefaultWorkHours {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
