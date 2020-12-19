@@ -5,12 +5,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
@@ -19,7 +17,8 @@ import java.time.LocalDateTime;
 @Entity
 @ToString
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
-public class PublicInfo {
+@EqualsAndHashCode
+public class PublicInfo implements Serializable {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;

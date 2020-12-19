@@ -1,17 +1,21 @@
 package com.notsecure.Appointees.entity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Service {
+@EqualsAndHashCode
+public class Service implements Serializable {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;

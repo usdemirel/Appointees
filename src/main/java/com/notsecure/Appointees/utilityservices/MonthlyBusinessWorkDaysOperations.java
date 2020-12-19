@@ -1,11 +1,13 @@
 package com.notsecure.Appointees.utilityservices;
 
 import com.notsecure.Appointees.entity.CustomDays;
+import com.notsecure.Appointees.entity.MonthlyBusinessWorkDays;
 import com.notsecure.Appointees.entity.WeeklyDefaultWorkHours;
 import javassist.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 
 /*
@@ -19,9 +21,10 @@ import java.util.List;
 public interface MonthlyBusinessWorkDaysOperations {
 
 public String createMonthlyData(LocalDate firstDay, List<WeeklyDefaultWorkHours> weeklyDefaultWorkHours, List<CustomDays> customDays) throws NotFoundException;
-public String updateADayInMonthlyData(String oldMonthlyData, LocalDate dateToBeChanged, int newValue);
-public int retrieveADay(LocalDate date);
+public MonthlyBusinessWorkDays updateADayInMonthlyData(MonthlyBusinessWorkDays oldMonthlyData, LocalDate dateToBeChanged, int newValue);
+public String retrieveADay(MonthlyBusinessWorkDays monthlyData, LocalDate date);
 //Sunday:0, Monday:1,...,Saturday:6
-public String updateAllSingleDaysInMonthlyData(LocalDate firstDayOfMonth, int day, int newValue); // For example, the business determines to be open all sundays, the input becomes 0,1
-
+public String updateAllSingleDaysInMonthlyData(MonthlyBusinessWorkDays monthlyData, int day, int newValue); // For example, the business determines to be open all sundays, the input becomes 0,1
+public Map<Integer, String> createMonthlyYearDataForBranch(List<WeeklyDefaultWorkHours> weeklyDefaultWorkHours, List<CustomDays> customDays, String selection) throws NotFoundException;
+public Map<Integer, String> createMonthlyYearDataForBranch(Long companyId, int year, int initMonth, int endMonth) throws NotFoundException;
 }
