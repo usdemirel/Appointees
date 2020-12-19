@@ -55,6 +55,7 @@ public class ClientController {
 
    @DeleteMapping(value = "/admin/{companyId}/client/{clientId}")
    public ResponseEntity<Client> deactivateClient(@PathVariable Long companyId, @PathVariable Long clientId) throws Exception {
+      //TODO Change add active flag to to client and
       try {
          clientService.deleteById(clientId);
          return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -72,5 +73,10 @@ public class ClientController {
          throw new Exception(ErrorMessages.COULD_NOT_UPDATE_RECORD.getErrorMessage());
       }
    }
+
+   /*Add active flag
+   *Allow list for company / filter
+   *
+   * */
 
 }
