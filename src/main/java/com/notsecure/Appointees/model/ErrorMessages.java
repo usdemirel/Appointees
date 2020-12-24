@@ -9,7 +9,8 @@ public enum ErrorMessages {
    COULD_NOT_SAVE_RECORD("Record not saved"),
    COULD_NOT_UPDATE_RECORD("Could not update record"),
    COULD_NOT_DELETE_RECORD("Could not delete record"),
-   EMAIL_ADDRESS_NOT_VERIFIED("Email address could not be verified");
+   EMAIL_ADDRESS_NOT_VERIFIED("Email address could not be verified"),
+   CONVERSION_MISMATCH_EXCEPTION("Conversion Mismatch Exception");
 
 
 private String errorMessage;
