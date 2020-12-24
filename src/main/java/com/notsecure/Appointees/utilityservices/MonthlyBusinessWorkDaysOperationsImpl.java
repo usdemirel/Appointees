@@ -3,6 +3,7 @@ package com.notsecure.Appointees.utilityservices;
 import com.notsecure.Appointees.entity.CustomDays;
 import com.notsecure.Appointees.entity.MonthlyBusinessWorkDays;
 import com.notsecure.Appointees.entity.WeeklyDefaultWorkHours;
+import com.notsecure.Appointees.model.ErrorMessages;
 import com.notsecure.Appointees.service.CustomDaysService;
 import com.notsecure.Appointees.service.MonthlyBusinessWorkDaysService;
 import com.notsecure.Appointees.service.WeeklyDefaultWorkHoursService;
@@ -149,6 +150,8 @@ public MonthlyBusinessWorkDays updateADayInMonthlyData(MonthlyBusinessWorkDays o
 @Override
 public String retrieveADay(MonthlyBusinessWorkDays monthlyData, LocalDate date) {
    String[] daysArr = monthlyData.getMonthlyData().split(",");
+   if(daysArr.length <28 || daysArr.length >31)
+      throw new FormatFlagsConversionMismatchException(ErrorMessages.CONVERSION_MISMATCH_EXCEPTION.getErrorMessage(), 'c'); //character means??
    return daysArr[date.getDayOfMonth() - 1];
 }
 
