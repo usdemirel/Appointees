@@ -50,9 +50,9 @@ public ResponseEntity<Company> getPublicInfo(@PathVariable Long companyId){
 @RequestMapping(value = "admin/company", method = RequestMethod.POST)
 public ResponseEntity<Company> saveCompany(@RequestBody Company company) {
    try{
-      logger.error("New company creation attempt: " + company.toString());
       return ResponseEntity.status(HttpStatus.CREATED).body(companyService.save(company));
    }catch(Exception e){
+      logger.error("New company creation attempt: " + company.toString());
       throw new ResponseStatusException(HttpStatus.NOT_MODIFIED,e.getMessage(),e);
    }
 }
