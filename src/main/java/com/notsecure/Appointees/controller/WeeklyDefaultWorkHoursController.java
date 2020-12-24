@@ -36,28 +36,8 @@ public ResponseEntity<Optional<WeeklyDefaultWorkHours>> getWeeklyDefaultWorkHour
 
 @RequestMapping(value = "/{companyId}/weeklydefaultworkhours", method = RequestMethod.POST)
 public ResponseEntity<WeeklyDefaultWorkHours> saveWeeklyDefaultWorkHours(@PathVariable Long companyId, @RequestBody WeeklyDefaultWorkHours weeklyDefaultWorkHours) throws NotFoundException {
-   if(weeklyDefaultWorkHours.getId() == null){
-      WeeklyDefaultWorkHours saved =weeklyDefaultWorkHoursService.save(weeklyDefaultWorkHours);
-      
-//      monthlyBusinessWorkDaysOperations.createMonthlyYearDataForBranch(
-//                      weeklyDefaultWorkHoursService.findWeeklyDefaultWorkHoursByEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(
-//                                      LocalDate.of(2020,1,1), 500L,300L),
-//                      customDaysService.findByCompanyIdAndServiceProviderIsNullAndCustomDateIsBetweenAndBranchIdOrBranchIsNullOrderByCustomDate(
-//                                      500L,LocalDate.of(2020,1,1),LocalDate.of(2020,12,31),300L),
-//                                      "branch"
-//      );
-   
-//      monthlyBusinessWorkDaysOperations.createMonthlyYearDataForBranch(
-//                      weeklyDefaultWorkHoursService.findWeeklyDefaultWorkHoursByEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(
-//                                      LocalDate.of(LocalDate.now().getYear(),1,1), saved.getCompany().getId(),null), //saved.getBranch().getId()
-//                      customDaysService.findByCompanyIdAndServiceProviderIsNullAndCustomDateIsBetweenAndBranchIdOrBranchIsNullOrderByCustomDate(
-//                                      saved.getCompany().getId(),LocalDate.of(LocalDate.now().getYear(),1,1),LocalDate.of(LocalDate.now().getYear(),12,31),null),
-//                      "branch"
-//      );
-   
-      monthlyBusinessWorkDaysOperations.createMonthlyYearDataForBranch(500L,2020,1,12);
-      
-   }
+   //temporary call
+   monthlyBusinessWorkDaysOperations.createMonthlyYearDataForBranchFINAL(500L,300L,2020,1,12);
    return null;
 }
 

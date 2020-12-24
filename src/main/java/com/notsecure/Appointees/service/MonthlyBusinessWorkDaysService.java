@@ -11,4 +11,6 @@ Optional<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysById(Long monthlyBu
 Optional<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchIdAndFirstDayOfMonth(Long branchId, LocalDate firstDayOfMonth);
 List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByCompanyId(Long companyId);
 List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchId(Long branchId);
+List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchIsNullAndCompanyIdAndFirstDayOfMonthIsBetweenOrderByFirstDayOfMonth(Long companyId, LocalDate initDate, LocalDate endDate);
+
 }

@@ -39,7 +39,12 @@ public List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAnd
 
 @Override
 public List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(LocalDate firstDay, Long companyId, Long branchId) {
-   return weeklyDefaultWorkHoursRepository.findWeeklyDefaultWorkHoursByEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(firstDay, companyId, branchId);
+   return weeklyDefaultWorkHoursRepository.findWeeklyDefaultWorkHoursByEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(firstDay.minusDays(1), companyId, branchId);
+}
+
+@Override
+public List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAndEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(LocalDate firstDay, Long companyId, Long branchId) {
+   return weeklyDefaultWorkHoursRepository.findWeeklyDefaultWorkHoursByServiceIsNullAndEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(firstDay.minusDays(1), companyId, branchId);
 }
 
 @Override

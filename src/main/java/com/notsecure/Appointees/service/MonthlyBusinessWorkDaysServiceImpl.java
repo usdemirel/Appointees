@@ -34,4 +34,9 @@ public List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByCompanyId(Long
 public List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchId(Long branchId) {
    return monthlyBusinessWorkDaysRepository.findMonthlyBusinessWorkDaysByBranchId(branchId);
 }
+
+@Override
+public List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchIsNullAndCompanyIdAndFirstDayOfMonthIsBetweenOrderByFirstDayOfMonth(Long companyId, LocalDate initDate, LocalDate endDate) {
+   return monthlyBusinessWorkDaysRepository.findMonthlyBusinessWorkDaysByBranchIsNullAndCompanyIdAndFirstDayOfMonthIsBetweenOrderByFirstDayOfMonth(companyId, initDate, endDate);
+}
 }

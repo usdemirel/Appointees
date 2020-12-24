@@ -13,5 +13,6 @@ public interface MonthlyBusinessWorkDaysRepository extends CrudRepository<Monthl
 Optional<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchIdAndFirstDayOfMonth(Long branchId, LocalDate firstDayOfMonth);
 List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByCompanyId(Long companyId);
 List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchId(Long branchId);
+List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchIsNullAndCompanyIdAndFirstDayOfMonthIsBetweenOrderByFirstDayOfMonth(Long companyId, LocalDate initDate, LocalDate endDate);
 
 }

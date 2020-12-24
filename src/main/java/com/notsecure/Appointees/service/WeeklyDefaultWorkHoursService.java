@@ -17,6 +17,8 @@ List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAndService
 
 List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(LocalDate firstDay, Long companyId, Long branchId);
 
+List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAndEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(LocalDate firstDay, Long companyId, Long branchId);
+
 WeeklyDefaultWorkHours save(WeeklyDefaultWorkHours s);
 
 Iterable<WeeklyDefaultWorkHours> saveAll(Iterable<WeeklyDefaultWorkHours> iterable);
