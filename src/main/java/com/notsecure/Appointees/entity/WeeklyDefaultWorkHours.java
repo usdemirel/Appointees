@@ -1,12 +1,9 @@
 package com.notsecure.Appointees.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.lang.Nullable;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
@@ -14,14 +11,15 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @ToString
-public class WeeklyDefaultWorkHours {
+@EqualsAndHashCode
+public class WeeklyDefaultWorkHours implements Serializable {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
-LocalDate effectiveBy = LocalDate.now(); // the date entered is exclusive
-@OneToOne
+LocalDate effectiveBy = LocalDate.now(); // the date entered is inclusive
+@OneToOne(fetch = FetchType.LAZY)
 private Company company;
-@OneToOne
+@OneToOne(fetch = FetchType.LAZY)
 private Branch branch;
 @OneToOne
 private ServiceProvider serviceProvider;
@@ -43,4 +41,24 @@ private String friday;
 private String saturday;
 
 
+public WeeklyDefaultWorkHours(WeeklyDefaultWorkHours weeklyDefaultWorkHours) {
+   this.id = weeklyDefaultWorkHours.getId();
+   this.effectiveBy = weeklyDefaultWorkHours.getEffectiveBy();
+   this.company = weeklyDefaultWorkHours.getCompany();
+   this.branch = weeklyDefaultWorkHours.getBranch();
+   this.serviceProvider = weeklyDefaultWorkHours.getServiceProvider();
+   this.service = weeklyDefaultWorkHours.getService();
+   this.sunday = weeklyDefaultWorkHours.getSunday();
+   this.monday = weeklyDefaultWorkHours.getMonday();
+   this.tuesday = weeklyDefaultWorkHours.getTuesday();
+   this.wednesday = weeklyDefaultWorkHours.getWednesday();
+   this.thursday = weeklyDefaultWorkHours.getThursday();
+   this.friday = weeklyDefaultWorkHours.getFriday();
+   this.saturday = weeklyDefaultWorkHours.getSaturday();
+}
+
+public WeeklyDefaultWorkHours setEffectiveBy(LocalDate effectiveBy) {
+   this.effectiveBy = effectiveBy;
+   return this;
+}
 }

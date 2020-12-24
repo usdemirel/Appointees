@@ -1,9 +1,12 @@
 package com.notsecure.Appointees.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /*
@@ -12,12 +15,18 @@ When there is a change in the mentioned tables for a company or branch, the chan
 When there's no change, no additional calculation will be performed.
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class MonthlyBusinessWorkDays {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
-private LocalDateTime firstDayOfMonth;
+private LocalDate firstDayOfMonth;
 private String monthlyData; // "0,1,1,1,1,1,1,0,0,1,..." 1 is a work day while 0 represents an OFF day.
+@JsonIgnore
 @OneToOne
 @NotNull
 private Company company;
@@ -27,4 +36,9 @@ private Company company;
 @Nullable
 @OneToOne
 private Branch branch;
+
+public MonthlyBusinessWorkDays setMonthlyData(String monthlyData) {
+   this.monthlyData = monthlyData;
+   return this;
+}
 }

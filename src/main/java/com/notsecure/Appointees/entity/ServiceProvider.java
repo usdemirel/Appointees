@@ -1,17 +1,21 @@
 package com.notsecure.Appointees.entity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class ServiceProvider {
+@EqualsAndHashCode
+public class ServiceProvider implements Serializable {
 @Id
 private Long id;
 @OneToOne
