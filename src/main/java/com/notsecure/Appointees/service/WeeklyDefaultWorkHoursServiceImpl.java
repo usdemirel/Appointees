@@ -1,7 +1,6 @@
 package com.notsecure.Appointees.service;
 
 import com.notsecure.Appointees.entity.WeeklyDefaultWorkHours;
-import com.notsecure.Appointees.model.OutputWorkDay;
 import com.notsecure.Appointees.repository.CustomDaysRepository;
 import com.notsecure.Appointees.repository.WeeklyDefaultWorkHoursRepository;
 import com.notsecure.Appointees.utilityservices.TextOperations;
