@@ -34,7 +34,7 @@ The purpose of this method is to replace default hours with the company's set wo
 For example, 2020-01-11 monday is set to default for a branch, and the company's work hour has been set to 08:00 to 16:00 for the given day.
 Branch's default hour will be replaced with the company's work hours.
  */
-private List<WeeklyDefaultWorkHours> generateWeeklyBranchWorkHoursBasedOnCompanyHours(Long companyId, Long branchId, int year, int initMonth, int endMonth) {
+public List<WeeklyDefaultWorkHours> generateWeeklyBranchWorkHoursBasedOnCompanyHours(Long companyId, Long branchId, int year, int initMonth, int endMonth) {
    //pulled company and branch data all at once, then, separated them.
    //output: companyWeeklyDefaultWorkHoursList and branchWeeklyDefaultWorkHoursList
    List<WeeklyDefaultWorkHours> branchAndCompanyWeeklyDefaultWorkHoursList = weeklyDefaultWorkHoursService.findWeeklyDefaultWorkHoursByEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(LocalDate.of(year, initMonth, 1), companyId, branchId);
@@ -81,6 +81,8 @@ private List<CustomDays> filterCustomDaysForBranch(Long companyId, Long branchId
    List<WeeklyDefaultWorkHours> branchAndCompanyWeeklyDefaultWorkHoursList = weeklyDefaultWorkHoursService.findWeeklyDefaultWorkHoursByEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(LocalDate.of(year, initMonth, 1), companyId, branchId);
    List<CustomDays> companyCustomDays = customDaysService.findByServiceProviderIsNullAndBranchIsNullAndCompanyIdAndCustomDateIsBetweenOrderByCustomDate(companyId, LocalDate.of(year, initMonth, 1), lastDay);
    List<CustomDays> branchCustomDays = customDaysService.findByServiceProviderIsNullAndCompanyIdAndBranchIdAndCustomDateIsBetweenOrderByCustomDate(companyId, branchId, LocalDate.of(year, initMonth, 1), lastDay);
+//   companyCustomDays.forEach(data -> System.out.println("companyCustomDays: " + data.getId()));
+//   branchCustomDays.forEach(data -> System.out.println("branchCustomDays: " + data.getId()));
    
    List<LocalDate> branchCustomDaysKeys = branchCustomDays.stream().map(data -> data.getCustomDate()).collect(Collectors.toList());
    List<WeeklyDefaultWorkHours> branchWeeklyDefaultWorkHoursList = branchAndCompanyWeeklyDefaultWorkHoursList.stream().filter(data -> data.getBranch() != null && data.getService() == null).collect(Collectors.toList());
@@ -108,8 +110,8 @@ private List<CustomDays> filterCustomDaysForBranch(Long companyId, Long branchId
 public Map<Integer, StringBuilder> createMonthlyYearDataForBranchFINAL(Long companyId, Long branchId, int year, int initMonth, int endMonth) throws NotFoundException {
    List<WeeklyDefaultWorkHours> branchWeeklyHours = generateWeeklyBranchWorkHoursBasedOnCompanyHours(companyId, branchId, year, initMonth, endMonth);
    List<CustomDays> branchCustomDays = filterCustomDaysForBranch(companyId, branchId, year, initMonth, endMonth);
-   branchWeeklyHours.forEach(data -> System.out.println("generatedWeeklyBranchWorkHoursBasedOnCompanyHours -> Id: " + data.getId() + " Eff: " + data.getEffectiveBy() + " Mon: " + data.getMonday() + " Tue: " + data.getTuesday() + " Wed: " + data.getWednesday() + " Thu: " + data.getThursday() + " Fri: " + data.getFriday() + " Sat: " + data.getSaturday()));
-   branchCustomDays.forEach(data -> System.out.println("Custom Hours: " + data.getId() + " " + data.getCustomDate() + " " + data.getDailyWorkHours() + " " + data.getReason()));
+//   branchWeeklyHours.forEach(data -> System.out.println("generatedWeeklyBranchWorkHoursBasedOnCompanyHours -> Id: " + data.getId() + " Eff: " + data.getEffectiveBy() + " Mon: " + data.getMonday() + " Tue: " + data.getTuesday() + " Wed: " + data.getWednesday() + " Thu: " + data.getThursday() + " Fri: " + data.getFriday() + " Sat: " + data.getSaturday()));
+//   branchCustomDays.forEach(data -> System.out.println("Custom Hours: " + data.getId() + " " + data.getCustomDate() + " " + data.getDailyWorkHours() + " " + data.getReason()));
    
    Map<LocalDate, CustomDays> customDaysMap = new HashMap<>();
    branchCustomDays.forEach(data -> customDaysMap.put(data.getCustomDate(), data));
@@ -157,14 +159,16 @@ public String retrieveADay(MonthlyBusinessWorkDays monthlyData, LocalDate date) 
 
 @Override
 public String updateAllSingleDaysInMonthlyData(MonthlyBusinessWorkDays monthlyData, int day, int newValue) {
+   if(day>7 || day<1) throw new IndexOutOfBoundsException("Day values should be between 1 and 7");
    int firstDay = (day - monthlyData.getFirstDayOfMonth().getDayOfWeek().getValue() + 7) % 7;
    String[] daysArr = monthlyData.getMonthlyData().split(",");
-   while (firstDay <= monthlyData.getFirstDayOfMonth().lengthOfMonth()) {
+   while (firstDay < monthlyData.getFirstDayOfMonth().lengthOfMonth()) {
       daysArr[firstDay] = String.valueOf(newValue);
       firstDay += 7;
    }
-   System.out.println(Arrays.asList(daysArr).toString());
-   return Arrays.asList(daysArr).toString();
+   StringBuilder result = new StringBuilder("");
+   Arrays.stream(daysArr).forEach(data -> result.append(data +","));
+   return result.substring(0,result.length()-1);
 }
 
 private String[] generateWeeklyDefaultWorkHours(WeeklyDefaultWorkHours weeklyDefaultWorkHours) {
