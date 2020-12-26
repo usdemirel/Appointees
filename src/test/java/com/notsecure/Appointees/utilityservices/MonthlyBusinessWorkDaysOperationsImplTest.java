@@ -136,20 +136,32 @@ void setUp() {
    weeklyDefaultWorkHoursList.add(generateWeeklyDefaultWorkHoursObject(1607L, "2020-07-19", "closed", "closed", "closed", "closed", "08:00,15:00", "08:00,15:00", "08:00,20:00", null, 500L, null, null));
    weeklyDefaultWorkHoursList.add(generateWeeklyDefaultWorkHoursObject(1608L, "2030-01-30", "05:05,17:26", "05:05,17:27", "05:05,17:28", "05:05,17:29", "05:05,17:30", "05:05,17:31", "05:05,17:32", null, 500L, null, null));
    //CustomDays sample data
-   customDaysList.add(generateCustomDaysObject(600L, "2020-12-06", "08:00,13:00", "2020-12-10T11:18", "Branch300L", 300L, 500L, null));
-   customDaysList.add(generateCustomDaysObject(601L, "2020-12-01", "12:00,20:01", "2020-12-10T11:18", "Branch-301L", 301L, 500L, null));
-   customDaysList.add(generateCustomDaysObject(602L, "2020-12-31", "closed", "2020-12-10T11:18", "COMPANY", null, 500L, null));
-   customDaysList.add(generateCustomDaysObject(603L, "2020-01-04", "08:00,13:03", "2020-12-10T11:18", "COMPANY", null, 500L, null));
-   customDaysList.add(generateCustomDaysObject(604L, "2020-01-05", "08:00,13:04", "2020-12-10T11:18", "COMPANY", null, 500L, null));
-   customDaysList.add(generateCustomDaysObject(605L, "2020-12-20", "08:00,13:05", "2020-12-10T11:18", "COMPANY", null, 500L, null));
-   customDaysList.add(generateCustomDaysObject(606L, "2020-11-20", "08:00,13:06", "2020-12-10T11:18", "COMPANY", null, 500L, null));
-   customDaysList.add(generateCustomDaysObject(607L, "2020-10-20", "08:00,13:07", "2020-12-10T11:18", "Branch-301L", 301L, 500L, null));
-   customDaysList.add(generateCustomDaysObject(608L, "2020-12-28", "08:00,13:08", "2020-12-10T11:18", "COMPANY", null, 500L, null));
-   customDaysList.add(generateCustomDaysObject(609L, "2020-12-30", "08:00,13:09", "2020-12-10T11:18", "Branch-301L", 301L, 500L, null));
-   customDaysList.add(generateCustomDaysObject(610L, "2020-12-30", "closed", "2020-12-10T11:18", "Branch300L", 300L, 500L, null));
-   customDaysList.add(generateCustomDaysObject(611L, "2021-01-01", "08:00,13:11", "2020-12-10T11:18", "Branch-301L", 301L, 500L, null));
-   customDaysList.add(generateCustomDaysObject(612L, "2020-12-07", "08:00,13:12", "2020-12-10T11:18", "COMPANY", null, 500L, null));
-   customDaysList.add(generateCustomDaysObject(613L, "2020-12-14", "08:00,13:13", "2020-12-10T11:18", "COMPANY", null, 500L, null));
+   customDaysList.add(generateCustomDaysObject(600L,"2020-12-06","07:59,16:00","2020-12-10T11:18","Branch300",300L,500L,null));
+   customDaysList.add(generateCustomDaysObject(601L,"2020-12-30","07:59,16:01","2020-12-10T11:18","Branch300",300L,500L,null));
+   customDaysList.add(generateCustomDaysObject(602L,"2020-01-01","07:59,16:02","2020-12-10T11:18","GreedyBranch - New Years Day - Wednesday",300L,500L,null));
+   customDaysList.add(generateCustomDaysObject(603L,"2020-01-31","closed","2020-12-10T11:18","Friday, January 31 - Branch Special",300L,500L,null));
+   customDaysList.add(generateCustomDaysObject(604L,"2020-07-04","07:59,16:04","2020-12-10T11:18","GreedyBranch - Saturday, July 4 - Independence Day",300L,500L,null));
+   customDaysList.add(generateCustomDaysObject(605L,"2020-11-26","07:59,16:05","2020-12-10T11:18","GreedyBranch - Thursday, November 26 - Thanksgiving Day",300L,500L,null));
+   customDaysList.add(generateCustomDaysObject(606L,"2020-12-01","closed","2020-12-10T11:18","Tuesday, December 1 - Branch Special",300L,500L,null));
+   customDaysList.add(generateCustomDaysObject(607L,"2020-12-25","07:59,16:07","2020-12-10T11:18","GreedyBranch - Friday, December 25 - Christmas Day",300L,500L,null));
+   customDaysList.add(generateCustomDaysObject(608L,"2020-12-31","07:59,16:08","2020-12-10T11:18","GreedyBranch - Thursday, December 31 - Company Special",300L,500L,null));
+   customDaysList.add(generateCustomDaysObject(630L,"2020-12-01","12:00,20:01","2020-12-10T11:18","Branch-301",301L,500L,null));
+   customDaysList.add(generateCustomDaysObject(631L,"2020-10-20","08:00,13:07","2020-12-10T11:18","Branch-301",301L,500L,null));
+   customDaysList.add(generateCustomDaysObject(632L,"2020-12-30","08:00,13:09","2020-12-10T11:18","Branch-301",301L,500L,null));
+   customDaysList.add(generateCustomDaysObject(633L,"2021-01-01","08:00,13:11","2020-12-10T11:18","Branch-301",301L,500L,null));
+   customDaysList.add(generateCustomDaysObject(660L,"2020-01-01","closed","2020-12-10T11:18","New Years Day - Wednesday",null,500L,null));
+   customDaysList.add(generateCustomDaysObject(661L,"2020-01-20","closed","2020-12-10T11:18","Monday, January 20 - Martin Luther King, Jr. Day",null,500L,null));
+   customDaysList.add(generateCustomDaysObject(662L,"2020-01-31","08:01,12:02","2020-12-10T11:18","Friday, January 31 - Company Special",null,500L,null));
+   customDaysList.add(generateCustomDaysObject(663L,"2020-02-17","closed","2020-12-10T11:18","Monday, February 17 - Presidents* Day",null,500L,null));
+   customDaysList.add(generateCustomDaysObject(664L,"2020-05-25","closed","2020-12-10T11:18","Monday, May 25 - Memorial Day",null,500L,null));
+   customDaysList.add(generateCustomDaysObject(665L,"2020-07-04","closed","2020-12-10T11:18","Saturday, July 4 - Independence Day",null,500L,null));
+   customDaysList.add(generateCustomDaysObject(666L,"2020-09-07","closed","2020-12-10T11:18","Monday, September 7 - Labor Day",null,500L,null));
+   customDaysList.add(generateCustomDaysObject(667L,"2020-10-12","closed","2020-12-10T11:18","Monday, October 12 - Columbus Day",null,500L,null));
+   customDaysList.add(generateCustomDaysObject(668L,"2020-11-11","closed","2020-12-10T11:18","Wednesday, November 11 - Veterans Day",null,500L,null));
+   customDaysList.add(generateCustomDaysObject(669L,"2020-11-26","closed","2020-12-10T11:18","Thursday, November 26 - Thanksgiving Day",null,500L,null));
+   customDaysList.add(generateCustomDaysObject(670L,"2020-12-31","08:01,12:01","2020-12-10T11:18","Tuesday, December 1 - Company Special",null,500L,null));
+   customDaysList.add(generateCustomDaysObject(671L,"2020-12-25","closed","2020-12-10T11:18","Friday, December 25 - Christmas Day",null,500L,null));
+   customDaysList.add(generateCustomDaysObject(672L,"2020-12-31","closed","2020-12-10T11:18","Thursday, December 31 - Company Special",null,500L,null));
 }
 
 @SneakyThrows
@@ -175,16 +187,16 @@ void createMonthlyYearDataForBranchFINAL() {
    //weekly list: SELECT * FROM WEEKLY_DEFAULT_WORK_HOURS WHERE EFFECTIVE_BY > '2019-12-31' AND COMPANY_ID = 500 AND BRANCH_ID IS NULL OR BRANCH_ID = 300 ORDER BY EFFECTIVE_BY;
    List<WeeklyDefaultWorkHours> weeklyList = weeklyDefaultWorkHoursList.stream().filter(data -> Arrays.asList(new Long[]{1599L, 1607L, 1601L, 1600L, 1605L, 1606L, 1603L, 1602L, 1608L}).contains(data.getId())).sorted(Comparator.comparing(WeeklyDefaultWorkHours::getEffectiveBy)).collect(Collectors.toList());
    //branchCD: SELECT * FROM CUSTOM_DAYS WHERE SERVICE_PROVIDER_ID IS NULL AND BRANCH_ID=300 AND COMPANY_ID = 500 AND CUSTOM_DATE > '2019-12-31' AND CUSTOM_DATE < '2021-01-01' ORDER BY CUSTOM_DATE;
-   List<CustomDays> branchCD = customDaysList.stream().filter(data -> Arrays.asList(new Long[]{600L, 610L}).contains(data.getId())).sorted(Comparator.comparing(CustomDays::getCustomDate)).collect(Collectors.toList());
+   List<CustomDays> branchCD = customDaysList.stream().filter(data -> Arrays.asList(new Long[]{600L, 601L, 602L, 603L, 604L, 605L, 606L, 607L, 608L}).contains(data.getId())).sorted(Comparator.comparing(CustomDays::getCustomDate)).collect(Collectors.toList());
    //companyCD: SELECT * FROM CUSTOM_DAYS WHERE SERVICE_PROVIDER_ID IS NULL AND BRANCH_ID IS NULL AND COMPANY_ID = 500 AND CUSTOM_DATE > '2019-12-31' AND CUSTOM_DATE < '2021-01-01' ORDER BY CUSTOM_DATE;
-   List<CustomDays> companyCD = customDaysList.stream().filter(data -> Arrays.asList(new Long[]{603L, 604L, 606L, 612L, 613L, 605L, 608L, 602L}).contains(data.getId())).sorted(Comparator.comparing(CustomDays::getCustomDate)).collect(Collectors.toList());
+   List<CustomDays> companyCD = customDaysList.stream().filter(data -> Arrays.asList(new Long[]{660L, 661L, 662L, 663L, 664L, 665L, 666L, 667L, 668L, 669L, 670L, 671L, 672L}).contains(data.getId())).sorted(Comparator.comparing(CustomDays::getCustomDate)).collect(Collectors.toList());
    
    when(weeklyDefaultWorkHoursService.findWeeklyDefaultWorkHoursByEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(initDate, companyId, branchId)).thenReturn(weeklyList);
    when(customDaysService.findByServiceProviderIsNullAndBranchIsNullAndCompanyIdAndCustomDateIsBetweenOrderByCustomDate(companyId, initDate, endDate)).thenReturn(companyCD);
    when(customDaysService.findByServiceProviderIsNullAndCompanyIdAndBranchIdAndCustomDateIsBetweenOrderByCustomDate(companyId, branchId, initDate, endDate)).thenReturn(branchCD);
    
    Map<Integer, String> map = monthlyBusinessWorkDaysOperations.createMonthlyYearDataForBranchFINAL(companyId, branchId, 2020, 1, 12);
-   assertEquals(map.get(1), "1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1");
+   assertEquals("1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,1,0",map.get(1));
 }
 
 @Test
