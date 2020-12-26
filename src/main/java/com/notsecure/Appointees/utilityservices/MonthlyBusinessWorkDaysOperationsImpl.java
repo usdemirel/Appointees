@@ -42,7 +42,7 @@ public List<WeeklyDefaultWorkHours> generateWeeklyBranchWorkHoursBasedOnCompanyH
    List<WeeklyDefaultWorkHours> branchWeeklyDefaultWorkHoursList = branchAndCompanyWeeklyDefaultWorkHoursList.stream().filter(data -> data.getBranch() != null && data.getService() == null).collect(Collectors.toList());
    
    //when necessary, created duplicated of branch week default work hours data to have a match with the company's default work hours
-   // output: sorted branchWeeklyDefaultWorkHoursList
+   //output: sorted branchWeeklyDefaultWorkHoursList
    int branchIndex = 0, branchListSize = branchWeeklyDefaultWorkHoursList.size();
    for (WeeklyDefaultWorkHours company : companyWeeklyDefaultWorkHoursList) {
       while (branchIndex < branchListSize && branchWeeklyDefaultWorkHoursList.get(branchIndex).getEffectiveBy().isBefore(company.getEffectiveBy().plusDays(1)))
@@ -107,7 +107,7 @@ private List<CustomDays> filterCustomDaysForBranch(Long companyId, Long branchId
 
 
 @Override
-public Map<Integer, StringBuilder> createMonthlyYearDataForBranchFINAL(Long companyId, Long branchId, int year, int initMonth, int endMonth) throws NotFoundException {
+public Map<Integer, String> createMonthlyYearDataForBranchFINAL(Long companyId, Long branchId, int year, int initMonth, int endMonth) throws NotFoundException {
    List<WeeklyDefaultWorkHours> branchWeeklyHours = generateWeeklyBranchWorkHoursBasedOnCompanyHours(companyId, branchId, year, initMonth, endMonth);
    List<CustomDays> branchCustomDays = filterCustomDaysForBranch(companyId, branchId, year, initMonth, endMonth);
 //   branchWeeklyHours.forEach(data -> System.out.println("generatedWeeklyBranchWorkHoursBasedOnCompanyHours -> Id: " + data.getId() + " Eff: " + data.getEffectiveBy() + " Mon: " + data.getMonday() + " Tue: " + data.getTuesday() + " Wed: " + data.getWednesday() + " Thu: " + data.getThursday() + " Fri: " + data.getFriday() + " Sat: " + data.getSaturday()));
@@ -136,8 +136,12 @@ public Map<Integer, StringBuilder> createMonthlyYearDataForBranchFINAL(Long comp
          counter++;
       }
    }
-   System.out.println("branchMap: " + branchMap);
-   return branchMap;
+   
+   Map<Integer, String> branch = new HashMap<>();
+   for(Integer key : branchMap.keySet()) branch.put(key, branchMap.get(key).substring(0,branchMap.get(key).length()-1));
+   System.out.println("createMonthlyYearDataForBranchFINAL: " + branch);
+   
+   return branch;
 }
 
 @Override
