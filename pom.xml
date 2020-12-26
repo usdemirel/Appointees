@@ -63,6 +63,12 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <!--12/25/2020: For testing purposes-->
+    <dependency>
+      <groupId>org.jeasy</groupId>
+      <artifactId>easy-random-core</artifactId>
+      <version>4.0.0</version>
+    </dependency>
 
     <!--		RestAssured-->
     <dependency>
