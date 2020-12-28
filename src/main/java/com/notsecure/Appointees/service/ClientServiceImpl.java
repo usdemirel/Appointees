@@ -39,4 +39,9 @@ public void delete(Client client) {
 public void deleteById(Long clientId) {
 
 }
+
+    @Override
+    public void deactivateById(Long clientId) {
+
+    }
 }

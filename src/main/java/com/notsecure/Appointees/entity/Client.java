@@ -1,5 +1,6 @@
 package com.notsecure.Appointees.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ private Long id;
 private String name;
 private String email;
 private String phone;
+private boolean activeClient ;
 @Nullable
 @OneToOne
 private Address address;

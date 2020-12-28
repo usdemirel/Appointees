@@ -57,7 +57,7 @@ public class ClientController {
    public ResponseEntity<Client> deactivateClient(@PathVariable Long companyId, @PathVariable Long clientId) throws Exception {
       //TODO Change add active flag to to client and
       try {
-         clientService.deleteById(clientId);
+         clientService.deactivateById(clientId);
          return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
       } catch (Exception e) {
          throw new Exception(ErrorMessages.COULD_NOT_DELETE_RECORD.getErrorMessage());
