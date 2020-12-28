@@ -1,7 +1,6 @@
 package com.notsecure.Appointees.service;
 
 import com.notsecure.Appointees.entity.WeeklyDefaultWorkHours;
-import com.notsecure.Appointees.model.OutputWorkDay;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,6 +15,8 @@ List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAndService
 List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAndServiceProviderIsNullAndCompanyIdAndEffectiveByIsAfterOrderByEffectiveBy(Long companyId, LocalDate lastDayOfMonth);
 
 List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(LocalDate firstDay, Long companyId, Long branchId);
+
+List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAndEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(LocalDate firstDay, Long companyId, Long branchId);
 
 WeeklyDefaultWorkHours save(WeeklyDefaultWorkHours s);
 

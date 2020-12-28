@@ -18,6 +18,7 @@ When there's no change, no additional calculation will be performed.
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @EqualsAndHashCode
 public class MonthlyBusinessWorkDays {

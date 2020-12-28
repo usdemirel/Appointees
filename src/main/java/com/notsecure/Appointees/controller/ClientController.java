@@ -76,7 +76,8 @@ public class ClientController {
 
    /*Add active flag
    *Allow list for company / filter
-   *guvenscomments
+   *comment
+   *guvens
    * second one
    * */
 
