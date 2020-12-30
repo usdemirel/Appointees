@@ -26,4 +26,7 @@ boolean existsById(Long weeklyDefaultWorkHoursId);
 
 Iterable<WeeklyDefaultWorkHours> findAll();
 
+List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIdAndServiceProviderIdAndEffectiveByIsAfterOrderByEffectiveBy(Long serviceId,Long serviceProviderId, LocalDate date);
+List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceProviderIdAndCompanyIdAndEffectiveByIsAfterOrderByEffectiveBy(Long serviceProviderId, Long companyId, LocalDate date);
+
 }

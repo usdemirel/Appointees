@@ -61,4 +61,5 @@ public WeeklyDefaultWorkHours setEffectiveBy(LocalDate effectiveBy) {
    this.effectiveBy = effectiveBy;
    return this;
 }
+
 }

@@ -60,6 +60,7 @@ ID  	CUSTOM_DATE  	DAILY_WORK_HOURS  	DATE_CREATED  	      REASON  	            
 
 import com.notsecure.Appointees.entity.CustomDays;
 import com.notsecure.Appointees.entity.WeeklyAppointmentsPerServiceProvider;
+import com.notsecure.Appointees.entity.WeeklyCustomServiceProviderSchedule;
 import com.notsecure.Appointees.entity.WeeklyDefaultWorkHours;
 
 import java.time.LocalDate;
@@ -68,6 +69,9 @@ import java.util.List;
 public interface TextOperations {
 
 public WeeklyAppointmentsPerServiceProvider generateWeeklySchedule(LocalDate firstDay, List<WeeklyDefaultWorkHours>weeklyDefaultWorkHours, List<CustomDays> customDays);
+public WeeklyAppointmentsPerServiceProvider generateWeeklyAppointmentsPerServiceProvider(LocalDate firstDay, Long serviceProviderId, Long companyId);
+
+public List<WeeklyCustomServiceProviderSchedule> generateWeeklyCustomServiceProviderSchedule(LocalDate firstDay, Long serviceProviderId, Long companyId, Long branchId, int numOfWeeks);
 public String generateADayInWeeklySchedule(LocalDate day, List<WeeklyDefaultWorkHours>weeklyDefaultWorkHours, List<CustomDays> customDays);
 public WeeklyAppointmentsPerServiceProvider updateADayInWeeklySchedule(LocalDate date, WeeklyAppointmentsPerServiceProvider schedule, String newDaySchedule);
 public WeeklyAppointmentsPerServiceProvider updateADayInWeeklySchedule(int day, WeeklyAppointmentsPerServiceProvider schedule, String newDaySchedule);

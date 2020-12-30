@@ -66,4 +66,14 @@ public Iterable<WeeklyDefaultWorkHours> findAll() {
    return weeklyDefaultWorkHoursRepository.findAll();
 }
 
+@Override
+public List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIdAndServiceProviderIdAndEffectiveByIsAfterOrderByEffectiveBy(Long serviceId, Long serviceProviderId, LocalDate date) {
+   return weeklyDefaultWorkHoursRepository.findWeeklyDefaultWorkHoursByServiceIdAndServiceProviderIdAndEffectiveByIsAfterOrderByEffectiveBy(serviceId, serviceProviderId, date);
+}
+
+@Override
+public List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceProviderIdAndCompanyIdAndEffectiveByIsAfterOrderByEffectiveBy(Long serviceProviderId, Long companyId, LocalDate date) {
+   return weeklyDefaultWorkHoursRepository.findWeeklyDefaultWorkHoursByServiceProviderIdAndCompanyIdAndEffectiveByIsAfterOrderByEffectiveBy(serviceProviderId, companyId, date);
+}
+
 }
