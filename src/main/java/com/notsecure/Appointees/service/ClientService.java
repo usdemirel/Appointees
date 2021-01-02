@@ -6,10 +6,11 @@ import javassist.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface ClientService {
 
-List<Client> findClientsByCompany(Long companyId) throws NotFoundException;
+Set<Client> findAllClientsByCompanyId(Long companyId) throws NotFoundException;
 Optional<Client> findById(Long clientId) throws NotFoundException;
 Client save(Client client);
 boolean existsById(Long clientId);

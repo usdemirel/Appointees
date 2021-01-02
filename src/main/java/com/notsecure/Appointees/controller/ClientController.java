@@ -14,8 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class ClientController {
@@ -27,10 +27,10 @@ public class ClientController {
    @Autowired
    ClientService clientService;
 
-   @GetMapping("/admin/{companyId}/clients}")
-   public ResponseEntity<List<Client>> getAllClients(@PathVariable Long companyId){
+   @GetMapping("/admin/{companyId}/clients")
+   public ResponseEntity<Set<Client>> getAllClients(@PathVariable Long companyId){
       try {
-         return ResponseEntity.status(HttpStatus.OK).body(clientService.findClientsByCompany(companyId));
+         return ResponseEntity.status(HttpStatus.OK).body(clientService.findAllClientsByCompanyId(companyId));
       } catch (NotFoundException e) {
          throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
       }
