@@ -1,15 +1,20 @@
 package com.notsecure.Appointees.service;
 
+import com.notsecure.Appointees.entity.MonthlyBusinessWorkDays;
 import com.notsecure.Appointees.entity.WeeklyDefaultWorkHours;
+import com.notsecure.Appointees.model.ErrorMessages;
 import com.notsecure.Appointees.repository.CustomDaysRepository;
 import com.notsecure.Appointees.repository.WeeklyDefaultWorkHoursRepository;
+import com.notsecure.Appointees.utilityservices.MonthlyBusinessWorkDaysOperations;
 import com.notsecure.Appointees.utilityservices.TextOperations;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jca.cci.CannotCreateRecordException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class WeeklyDefaultWorkHoursServiceImpl implements WeeklyDefaultWorkHoursService {
@@ -17,13 +22,19 @@ public class WeeklyDefaultWorkHoursServiceImpl implements WeeklyDefaultWorkHours
 @Autowired
 WeeklyDefaultWorkHoursRepository weeklyDefaultWorkHoursRepository;
 @Autowired
+MonthlyBusinessWorkDaysService monthlyBusinessWorkDaysService;
+@Autowired
+MonthlyBusinessWorkDaysOperations monthlyBusinessWorkDaysOperations;
+@Autowired
 CustomDaysRepository customDaysRepository;
 @Autowired
 TextOperations textOperations;
 
 @Override
-public Optional<WeeklyDefaultWorkHours> findById(Long id) {
-   return weeklyDefaultWorkHoursRepository.findById(id);
+public Optional<WeeklyDefaultWorkHours> findById(Long id) throws NotFoundException {
+   Optional<WeeklyDefaultWorkHours> weeklyDefaultWorkHours = weeklyDefaultWorkHoursRepository.findById(id);
+   if(weeklyDefaultWorkHours.isEmpty()) throw new NotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+   return weeklyDefaultWorkHours;
 }
 
 @Override
@@ -47,8 +58,35 @@ public List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAnd
 }
 
 @Override
-public WeeklyDefaultWorkHours save(WeeklyDefaultWorkHours weeklyDefaultWorkHours) {
-   return weeklyDefaultWorkHoursRepository.save(weeklyDefaultWorkHours);
+@Transactional
+public WeeklyDefaultWorkHours save(WeeklyDefaultWorkHours weeklyDefaultWorkHours) throws Exception {
+   
+   WeeklyDefaultWorkHours workHours = weeklyDefaultWorkHoursRepository.save(weeklyDefaultWorkHours);
+   
+   if(workHours == null) throw new Exception("WeeklyDefaultWorkHours is not saved");
+   
+   Map<Integer,String> monthlyYearDataMap = null;
+   if(weeklyDefaultWorkHours.getBranch() != null){
+      int year = LocalDate.now().getYear();
+      monthlyYearDataMap = monthlyBusinessWorkDaysOperations.createMonthlyYearDataForBranchFINAL(weeklyDefaultWorkHours.getCompany().getId(),
+                      weeklyDefaultWorkHours.getBranch()==null ? null : weeklyDefaultWorkHours.getBranch().getId(),
+                      year, 1,12);
+      
+      MonthlyBusinessWorkDays monthlyBusinessWorkDays = new MonthlyBusinessWorkDays();
+      monthlyBusinessWorkDays.setCompany(weeklyDefaultWorkHours.getCompany());
+      monthlyBusinessWorkDays.setBranch(weeklyDefaultWorkHours.getBranch());
+      List<MonthlyBusinessWorkDays> monthlyYearDataList = new ArrayList<>();
+      for(Integer key : monthlyYearDataMap.keySet()){
+         MonthlyBusinessWorkDays aCopy = (MonthlyBusinessWorkDays) monthlyBusinessWorkDays.clone();
+   
+         aCopy.setMonthlyData(monthlyYearDataMap.get(key));
+         aCopy.setFirstDayOfMonth(LocalDate.of(year, key, 1));
+         monthlyYearDataList.add(aCopy);
+      }
+      if(monthlyBusinessWorkDaysService.saveAll(monthlyYearDataList).iterator().hasNext() == false) throw new Exception("MonthlyBusinessWorkDays is not saved");
+   
+   }
+   return workHours;
 }
 
 @Override

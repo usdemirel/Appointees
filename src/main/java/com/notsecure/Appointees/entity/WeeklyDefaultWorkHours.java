@@ -16,14 +16,14 @@ public class WeeklyDefaultWorkHours implements Serializable {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
-LocalDate effectiveBy = LocalDate.now(); // the date entered is inclusive
-@OneToOne(fetch = FetchType.LAZY)
+LocalDate effectiveBy; // the date entered is inclusive
+@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 private Company company;
-@OneToOne(fetch = FetchType.LAZY)
+@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 private Branch branch;
-@OneToOne
+@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 private ServiceProvider serviceProvider;
-@OneToOne
+@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 private Service service;
 @Nullable
 private String sunday;
@@ -39,7 +39,6 @@ private String thursday;
 private String friday;
 @Nullable
 private String saturday;
-
 
 public WeeklyDefaultWorkHours(WeeklyDefaultWorkHours weeklyDefaultWorkHours) {
    this.id = weeklyDefaultWorkHours.getId();

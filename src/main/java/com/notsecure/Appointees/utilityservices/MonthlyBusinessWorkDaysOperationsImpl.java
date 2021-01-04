@@ -107,12 +107,14 @@ private List<CustomDays> filterCustomDaysForBranch(Long companyId, Long branchId
 
 
 @Override
-public Map<Integer, String> createMonthlyYearDataForBranchFINAL(Long companyId, Long branchId, int year, int initMonth, int endMonth) throws NotFoundException {
+public Map<Integer, String> createMonthlyYearDataForBranchFINAL(Long companyId, Long branchId, int year, int initMonth, int endMonth) {
+   System.out.println("*--*: " + companyId + " " + branchId + " " + year + " " + initMonth + " " + endMonth);
+   
    List<WeeklyDefaultWorkHours> branchWeeklyHours = generateWeeklyBranchWorkHoursBasedOnCompanyHours(companyId, branchId, year, initMonth, endMonth);
    List<CustomDays> branchCustomDays = filterCustomDaysForBranch(companyId, branchId, year, initMonth, endMonth);
 //   branchWeeklyHours.forEach(data -> System.out.println("generatedWeeklyBranchWorkHoursBasedOnCompanyHours -> Id: " + data.getId() + " Eff: " + data.getEffectiveBy() + " Mon: " + data.getMonday() + " Tue: " + data.getTuesday() + " Wed: " + data.getWednesday() + " Thu: " + data.getThursday() + " Fri: " + data.getFriday() + " Sat: " + data.getSaturday()));
 //   branchCustomDays.forEach(data -> System.out.println("Custom Hours: " + data.getId() + " " + data.getCustomDate() + " " + data.getDailyWorkHours() + " " + data.getReason()));
-   
+  
    Map<LocalDate, CustomDays> customDaysMap = new HashMap<>();
    branchCustomDays.forEach(data -> customDaysMap.put(data.getCustomDate(), data));
    
@@ -138,8 +140,8 @@ public Map<Integer, String> createMonthlyYearDataForBranchFINAL(Long companyId, 
    }
    
    Map<Integer, String> branch = new HashMap<>();
+   System.out.println("createMonthlyYearDataForBranchFINAL: " + branchMap);
    for(Integer key : branchMap.keySet()) branch.put(key, branchMap.get(key).substring(0,branchMap.get(key).length()-1));
-   System.out.println("createMonthlyYearDataForBranchFINAL: " + branch);
    
    return branch;
 }

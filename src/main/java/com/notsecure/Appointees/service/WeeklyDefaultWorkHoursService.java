@@ -1,6 +1,7 @@
 package com.notsecure.Appointees.service;
 
 import com.notsecure.Appointees.entity.WeeklyDefaultWorkHours;
+import javassist.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Optional;
 
 public interface WeeklyDefaultWorkHoursService {
 
-Optional<WeeklyDefaultWorkHours> findById(Long id);
+Optional<WeeklyDefaultWorkHours> findById(Long id) throws NotFoundException;
 
 List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAndServiceProviderIsNullAndCompanyId(Long companyId);
 
@@ -18,7 +19,7 @@ List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByEffectiveByIsAfterAndCo
 
 List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAndEffectiveByIsAfterAndCompanyIdAndBranchIsNullOrBranchIdOrderByEffectiveBy(LocalDate firstDay, Long companyId, Long branchId);
 
-WeeklyDefaultWorkHours save(WeeklyDefaultWorkHours s);
+WeeklyDefaultWorkHours save(WeeklyDefaultWorkHours s) throws Exception;
 
 Iterable<WeeklyDefaultWorkHours> saveAll(Iterable<WeeklyDefaultWorkHours> iterable);
 

@@ -27,7 +27,6 @@ public class MonthlyBusinessWorkDays {
 private Long id;
 private LocalDate firstDayOfMonth;
 private String monthlyData; // "0,1,1,1,1,1,1,0,0,1,..." 1 is a work day while 0 represents an OFF day.
-@JsonIgnore
 @OneToOne
 @NotNull
 private Company company;
@@ -42,4 +41,15 @@ public MonthlyBusinessWorkDays setMonthlyData(String monthlyData) {
    this.monthlyData = monthlyData;
    return this;
 }
+@Override
+public Object clone() {
+   try {
+      return super.clone();
+   } catch (CloneNotSupportedException e) {
+      return new MonthlyBusinessWorkDays(this.id,this.firstDayOfMonth,this.monthlyData,this.company,this.branch);
+   }
+}
+
+
+
 }

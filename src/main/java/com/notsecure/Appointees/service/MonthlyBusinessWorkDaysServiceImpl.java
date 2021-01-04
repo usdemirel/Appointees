@@ -44,4 +44,9 @@ public List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchIsNullAn
 public List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchIdAndFirstDayOfMonthIsBetweenOrderByFirstDayOfMonth(Long branchId, LocalDate initDate, LocalDate endDate) {
    return monthlyBusinessWorkDaysRepository.findMonthlyBusinessWorkDaysByBranchIdAndFirstDayOfMonthIsBetweenOrderByFirstDayOfMonth(branchId, initDate, endDate);
 }
+
+@Override
+public Iterable<MonthlyBusinessWorkDays> saveAll(Iterable<MonthlyBusinessWorkDays> iterable) {
+   return monthlyBusinessWorkDaysRepository.saveAll(iterable);
+}
 }

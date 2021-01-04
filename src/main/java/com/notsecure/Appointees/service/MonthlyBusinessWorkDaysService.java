@@ -13,5 +13,9 @@ List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByCompanyId(Long compan
 List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchId(Long branchId);
 List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchIsNullAndCompanyIdAndFirstDayOfMonthIsBetweenOrderByFirstDayOfMonth(Long companyId, LocalDate initDate, LocalDate endDate);
 List<MonthlyBusinessWorkDays> findMonthlyBusinessWorkDaysByBranchIdAndFirstDayOfMonthIsBetweenOrderByFirstDayOfMonth(Long branchId, LocalDate initDate, LocalDate endDate);
+Iterable<MonthlyBusinessWorkDays> saveAll(Iterable<MonthlyBusinessWorkDays> iterable);
+
+//public List<WeeklyDefaultWorkHours> generateWeeklyBranchWorkHoursBasedOnCompanyHours(Long companyId, Long branchId, int year, int initMonth, int endMonth)
+
 
 }
