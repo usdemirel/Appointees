@@ -7,7 +7,10 @@ import com.notsecure.Appointees.repository.AppointmentRepository;
 import com.notsecure.Appointees.repository.ClientRepository;
 import com.notsecure.Appointees.repository.ServiceProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -48,7 +51,7 @@ public class ClientServiceImpl implements ClientService{
 
 @Override
 public Optional<Client> findById(Long clientId) {
-   return Optional.empty();
+  return clientRepository.findById(clientId);
 }
 
 @Override
@@ -73,6 +76,16 @@ public void deleteById(Long clientId) {
 
     @Override
     public void deactivateById(Long clientId) {
+       Optional <Client> clientOptional= clientRepository.findById(clientId);
+        try {
+            if (!clientOptional.isEmpty()){
+                Client client = clientOptional.get();
+                client.setActiveClient(false);
+                clientRepository.save(client);
+            }
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_MODIFIED,e.getMessage(),e);
+        }
 
     }
 }

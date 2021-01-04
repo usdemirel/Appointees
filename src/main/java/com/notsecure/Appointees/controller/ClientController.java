@@ -36,22 +36,18 @@ public class ClientController {
       }
    }
 
-   @GetMapping("/public/{companyId}/client/{clientId}")
-   public ResponseEntity<Client> getClientById(@PathVariable Long companyId, @PathVariable Long clientId)  {
+   @GetMapping("/public/client/{clientId}")
+   public ResponseEntity<Client> getClientById(@PathVariable Long clientId)  {
       try {
-         Optional<Company> company = companyService.findCompanyById(companyId);
          Optional<Client> client = clientService.findById(clientId);
-         if (!company.isPresent()){
-            throw new NotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
-         }
          return ResponseEntity.status(HttpStatus.OK).body(client.get());
       } catch (NotFoundException e) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
       }
    }
 
-   @PostMapping(value = "/admin/{companyId}/client")
-   public ResponseEntity<Client> saveClient(@PathVariable Long companyId, @RequestBody Client client) {
+   @PostMapping(value = "/admin/client")
+   public ResponseEntity<Client> saveClient(@RequestBody Client client) {
       try{
          return ResponseEntity.status(HttpStatus.CREATED).body(clientService.save(client));
       }catch(Exception e){
