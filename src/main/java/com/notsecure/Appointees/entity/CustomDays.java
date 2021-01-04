@@ -28,6 +28,9 @@ private Company company;
 private Branch branch; //if null, it is a custom day for all branches
 @OneToOne
 @Nullable
+private Service service; //if null, it is a custom day for the company or branch
+@OneToOne
+@Nullable
 private ServiceProvider serviceProvider; //if null, it is a custom day for the company or branch
 private String dailyWorkHours; // if null, OFF Day
 private LocalDate customDate;

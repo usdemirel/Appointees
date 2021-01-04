@@ -4,9 +4,11 @@ import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /*
@@ -18,6 +20,7 @@ Service is a must here because a person can be assigned to different duties let'
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class WeeklyCustomServiceProviderSchedule {
 @Id
@@ -36,7 +39,7 @@ private Service service;
 @NotNull
 private ServiceProvider serviceProvider;
 
-private LocalDateTime firstDayOfWeek; //represents sunday
+private LocalDate firstDayOfWeek; //represents sunday
 //This is an important addition here. It will allow admins to set different service time for different seasons.
 private int totalServiceTime; // duration + buffer
 

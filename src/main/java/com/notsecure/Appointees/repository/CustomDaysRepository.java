@@ -15,5 +15,5 @@ List<CustomDays> findByCompanyIdAndServiceProviderIsNullAndCustomDateIsBetweenOr
 List<CustomDays> findByCompanyIdAndServiceProviderIsNullAndCustomDateIsBetweenAndBranchIdOrBranchIsNullOrderByCustomDate(Long companyId, LocalDate in, LocalDate out, Long branchId);
 List<CustomDays> findByServiceProviderIsNullAndBranchIsNullAndCompanyIdAndCustomDateIsBetweenOrderByCustomDate(Long companyId, LocalDate initDate, LocalDate endDate);
 List<CustomDays> findByServiceProviderIsNullAndCompanyIdAndBranchIdAndCustomDateIsBetweenOrderByCustomDate(Long companyId, Long branchId, LocalDate initDate, LocalDate endDate);
-
+List<CustomDays> findByBranchIdAndServiceProviderIdAndCustomDateIsBetweenOrderByCustomDate(Long branchId, Long serviceProviderId, LocalDate initDate, LocalDate endDate);
 }

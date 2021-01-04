@@ -34,4 +34,10 @@ public List<CustomDays> findByServiceProviderIsNullAndBranchIsNullAndCompanyIdAn
 public List<CustomDays> findByServiceProviderIsNullAndCompanyIdAndBranchIdAndCustomDateIsBetweenOrderByCustomDate(Long companyId, Long branchId, LocalDate initDate, LocalDate endDate) {
    return customDaysRepository.findByServiceProviderIsNullAndCompanyIdAndBranchIdAndCustomDateIsBetweenOrderByCustomDate(companyId, branchId, initDate, endDate);
 }
+
+@Override
+public List<CustomDays> findByBranchIdAndServiceProviderIdAndCustomDateIsBetweenOrderByCustomDate(Long branchId, Long serviceProviderId, LocalDate initDate, LocalDate endDate) {
+   return customDaysRepository.findByBranchIdAndServiceProviderIdAndCustomDateIsBetweenOrderByCustomDate(branchId, serviceProviderId, initDate, endDate);
+}
+
 }
