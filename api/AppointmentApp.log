@@ -3151,3 +3151,116 @@ com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer fou
 2021-01-10 13:15:58.114  INFO 34584 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
 2021-01-10 13:15:58.651  INFO 34584 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
 2021-01-10 13:15:58.665  INFO 34584 --- [restartedMain] c.n.Appointees.AppointeesApplication     : Started AppointeesApplication in 9.606 seconds (JVM running for 11.509)
+2021-01-10 13:36:11.089  INFO 30192 --- [restartedMain] c.n.Appointees.AppointeesApplication     : Starting AppointeesApplication on DESKTOP-CULSAEC with PID 30192 (C:\Users\serka\Documents\Appointees\api\target\classes started by serka in C:\Users\serka\Documents\Appointees\api)
+2021-01-10 13:36:11.095  INFO 30192 --- [restartedMain] c.n.Appointees.AppointeesApplication     : No active profile set, falling back to default profiles: default
+2021-01-10 13:36:11.205  INFO 30192 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-01-10 13:36:11.206  INFO 30192 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-01-10 13:36:13.221  INFO 30192 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-01-10 13:36:13.497  INFO 30192 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 260ms. Found 13 JPA repository interfaces.
+2021-01-10 13:36:14.555  INFO 30192 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-01-10 13:36:14.574  INFO 30192 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-01-10 13:36:14.575  INFO 30192 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-01-10 13:36:14.778  INFO 30192 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-01-10 13:36:14.779  INFO 30192 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3572 ms
+2021-01-10 13:36:14.847  INFO 30192 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-01-10 13:36:20.582  INFO 30192 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-01-10 13:36:20.591  INFO 30192 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2'. Database available at 'jdbc:h2:./src/main/resources/data/appointees'
+2021-01-10 13:36:20.813  INFO 30192 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-01-10 13:36:20.909  INFO 30192 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-01-10 13:36:20.985  INFO 30192 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
+2021-01-10 13:36:21.048  WARN 30192 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-01-10 13:36:21.171  INFO 30192 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-01-10 13:36:21.384  INFO 30192 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-01-10 13:36:21.695  INFO 30192 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-01-10 13:36:21.803  INFO 30192 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-01-10 13:36:21.815  INFO 30192 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2021-01-10 13:36:23.716  INFO 30192 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-01-10 13:36:23.756  INFO 30192 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-01-10 13:36:24.732  INFO 30192 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2021-01-10 13:36:24.760  INFO 30192 --- [restartedMain] c.n.Appointees.AppointeesApplication     : Started AppointeesApplication in 14.596 seconds (JVM running for 16.423)
+2021-01-10 13:37:35.414  INFO 16108 --- [restartedMain] c.n.Appointees.AppointeesApplication     : Starting AppointeesApplication on DESKTOP-CULSAEC with PID 16108 (C:\Users\serka\Documents\Appointees\api\target\classes started by serka in C:\Users\serka\Documents\Appointees\api)
+2021-01-10 13:37:35.418  INFO 16108 --- [restartedMain] c.n.Appointees.AppointeesApplication     : No active profile set, falling back to default profiles: default
+2021-01-10 13:37:35.508  INFO 16108 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-01-10 13:37:35.510  INFO 16108 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-01-10 13:37:36.532  INFO 16108 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-01-10 13:37:36.703  INFO 16108 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 161ms. Found 13 JPA repository interfaces.
+2021-01-10 13:37:37.368  INFO 16108 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-01-10 13:37:37.378  INFO 16108 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-01-10 13:37:37.379  INFO 16108 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-01-10 13:37:37.499  INFO 16108 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-01-10 13:37:37.500  INFO 16108 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1989 ms
+2021-01-10 13:37:37.550  INFO 16108 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-01-10 13:37:41.865  INFO 16108 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-01-10 13:37:41.875  INFO 16108 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2'. Database available at 'jdbc:h2:./src/main/resources/data/appointees'
+2021-01-10 13:37:42.065  INFO 16108 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-01-10 13:37:42.165  INFO 16108 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-01-10 13:37:42.237  INFO 16108 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
+2021-01-10 13:37:42.289  WARN 16108 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-01-10 13:37:42.417  INFO 16108 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-01-10 13:37:42.583  INFO 16108 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-01-10 13:37:42.815  INFO 16108 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-01-10 13:37:42.880  INFO 16108 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-01-10 13:37:42.885  INFO 16108 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2021-01-10 13:37:44.048  INFO 16108 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-01-10 13:37:44.057  INFO 16108 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-01-10 13:37:44.748  INFO 16108 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2021-01-10 13:37:44.765  INFO 16108 --- [restartedMain] c.n.Appointees.AppointeesApplication     : Started AppointeesApplication in 10.089 seconds (JVM running for 11.84)
+2021-01-10 13:38:39.416  INFO 16108 --- [Thread-6] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-01-10 13:38:39.417  INFO 16108 --- [Thread-6] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2021-01-10 13:38:39.463  INFO 16108 --- [Thread-6] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-01-10 13:38:39.468  INFO 16108 --- [Thread-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-01-10 13:38:39.476  INFO 16108 --- [Thread-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-01-10 13:38:39.633  INFO 16108 --- [restartedMain] c.n.Appointees.AppointeesApplication     : Starting AppointeesApplication on DESKTOP-CULSAEC with PID 16108 (C:\Users\serka\Documents\Appointees\api\target\classes started by serka in C:\Users\serka\Documents\Appointees\api)
+2021-01-10 13:38:39.634  INFO 16108 --- [restartedMain] c.n.Appointees.AppointeesApplication     : No active profile set, falling back to default profiles: default
+2021-01-10 13:38:40.095  INFO 16108 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-01-10 13:38:40.199  INFO 16108 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 102ms. Found 13 JPA repository interfaces.
+2021-01-10 13:38:40.387  INFO 16108 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-01-10 13:38:40.388  INFO 16108 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-01-10 13:38:40.388  INFO 16108 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-01-10 13:38:40.421  INFO 16108 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-01-10 13:38:40.422  INFO 16108 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 783 ms
+2021-01-10 13:38:40.450  INFO 16108 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2021-01-10 13:38:40.453  INFO 16108 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2021-01-10 13:38:40.454  INFO 16108 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2'. Database available at 'jdbc:h2:./src/main/resources/data/appointees'
+2021-01-10 13:38:40.499  INFO 16108 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-01-10 13:38:40.518  INFO 16108 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-01-10 13:38:40.529  INFO 16108 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-01-10 13:38:40.605  WARN 16108 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-01-10 13:38:40.879  INFO 16108 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-01-10 13:38:40.906  INFO 16108 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-01-10 13:38:40.907  INFO 16108 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2021-01-10 13:38:41.120  INFO 16108 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-01-10 13:38:41.121  INFO 16108 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-01-10 13:38:41.442  INFO 16108 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2021-01-10 13:38:41.448  INFO 16108 --- [restartedMain] c.n.Appointees.AppointeesApplication     : Started AppointeesApplication in 1.891 seconds (JVM running for 68.524)
+2021-01-10 13:38:41.452  INFO 16108 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2021-01-10 13:40:56.055  INFO 32992 --- [restartedMain] c.n.Appointees.AppointeesApplication     : Starting AppointeesApplication on DESKTOP-CULSAEC with PID 32992 (C:\Users\serka\Documents\Appointees\api\target\classes started by serka in C:\Users\serka\Documents\Appointees\api)
+2021-01-10 13:40:56.063  INFO 32992 --- [restartedMain] c.n.Appointees.AppointeesApplication     : No active profile set, falling back to default profiles: default
+2021-01-10 13:40:56.144  INFO 32992 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-01-10 13:40:56.145  INFO 32992 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-01-10 13:40:57.151  INFO 32992 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-01-10 13:40:57.316  INFO 32992 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 154ms. Found 13 JPA repository interfaces.
+2021-01-10 13:40:57.985  INFO 32992 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-01-10 13:40:57.997  INFO 32992 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-01-10 13:40:57.999  INFO 32992 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-01-10 13:40:58.116  INFO 32992 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-01-10 13:40:58.116  INFO 32992 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1971 ms
+2021-01-10 13:40:58.163  INFO 32992 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-01-10 13:41:02.446  INFO 32992 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-01-10 13:41:02.454  INFO 32992 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2'. Database available at 'jdbc:h2:./src/main/resources/data/appointees'
+2021-01-10 13:41:02.618  INFO 32992 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-01-10 13:41:02.685  INFO 32992 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-01-10 13:41:02.746  INFO 32992 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
+2021-01-10 13:41:02.795  WARN 32992 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-01-10 13:41:02.891  INFO 32992 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-01-10 13:41:03.044  INFO 32992 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-01-10 13:41:03.274  INFO 32992 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-01-10 13:41:03.338  INFO 32992 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-01-10 13:41:03.340  INFO 32992 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2021-01-10 13:41:04.371  INFO 32992 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-01-10 13:41:04.381  INFO 32992 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-01-10 13:41:04.936  INFO 32992 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2021-01-10 13:41:04.948  INFO 32992 --- [restartedMain] c.n.Appointees.AppointeesApplication     : Started AppointeesApplication in 9.51 seconds (JVM running for 11.052)
+2021-01-10 13:41:30.873  INFO 32992 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-01-10 13:41:30.874  INFO 32992 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-01-10 13:41:30.886  INFO 32992 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
