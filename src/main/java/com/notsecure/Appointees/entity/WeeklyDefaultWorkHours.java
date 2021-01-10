@@ -17,13 +17,16 @@ public class WeeklyDefaultWorkHours implements Serializable {
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
 LocalDate effectiveBy; // the date entered is inclusive
-@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+@OneToOne(cascade = CascadeType.DETACH)
 private Company company;
-@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+@JoinColumn(updatable = false)
+@OneToOne(cascade = CascadeType.DETACH)
 private Branch branch;
-@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+@JoinColumn(updatable = false)
+@OneToOne(cascade = CascadeType.DETACH)
 private ServiceProvider serviceProvider;
-@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+@JoinColumn(updatable = false)
+@OneToOne(cascade = CascadeType.DETACH)
 private Service service;
 @Nullable
 private String sunday;

@@ -1,16 +1,8 @@
 package com.notsecure.Appointees.entity;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.LazyGroup;
-import org.hibernate.annotations.LazyToOne;
-import org.hibernate.annotations.LazyToOneOption;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -20,8 +12,8 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class Branch extends PublicInfo implements Serializable {
 private String zoneId;
-@JsonIgnore // Due to LAZY fetching caused issues, I've added the annotation SD - 12/12/2020
-@ManyToOne (fetch = FetchType.LAZY)
+@JoinColumn(updatable = false)
+@ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
 Company company;
 private boolean separateBilling;
 @OneToOne (fetch = FetchType.LAZY)
@@ -31,7 +23,6 @@ public Branch setActiveAccountFalse() {
    this.setActiveAccount(false);
    return this;
 }
-
 
 
 }

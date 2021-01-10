@@ -1,9 +1,14 @@
 package com.notsecure.Appointees;
 
+import com.notsecure.Appointees.entity.AccountInfo;
+import com.notsecure.Appointees.entity.Address;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import static io.restassured.RestAssured.given;
@@ -20,19 +25,34 @@ void setUp() throws Exception {
 @Test
 final void testCreateCompany() {
    
+   Address address = new Address();
+   address.setAddressLine1("8132 Kirby Drive");
+   address.setCity("Houston");
+   address.setCountry("USA");
+   address.setState("TX");
+   
+   AccountInfo accountInfo = new AccountInfo();
+   accountInfo.setPlanType("PREMIUM");
+   accountInfo.setNumberOfBookingsLeft(99);
+   accountInfo.setValidUntil(LocalDate.now().plusYears(2));
+   
+   
+   
    Map<String, Object> company = new HashMap<>();
-   company.put("businessName", "Urban Spa Day2");
-   company.put("bookingPageTitle", "Welcome to Urban Day Spa!");
-   company.put("businessCategory", "Beauty/Health");
-   company.put("businessHighlights", "Urban Day Spa, with 2 locations in the Greater Houston Area");
-   company.put("imageUrl", "https://clients.mindbodyonline.com/studios/UrbanDaySpaSpringTX/logo.gif");
-   company.put("websiteLink", "https://urbandayspa.com/");
-   company.put("customerSupportEmail", "support@urbandayspa.com");
-   company.put("customerSupportPhone", "832-698-1544");
+   company.put("businessName", "Castle Dental");
+   company.put("bookingPageTitle", "We're Open and Providing Safe Smiles!'");
+   company.put("businessCategory", "Health");
+   company.put("businessHighlights", "We're making dental more affordable!\n" +
+                   "\n" +
+                   "2.9% Financing on approved credit*");
+   company.put("imageUrl", "https://www.castledental.com/dist/app/assets/img/logo-cd-dark.svg");
+   company.put("websiteLink", "https://www.castledental.com/");
+   company.put("customerSupportEmail", "support@castledental.com");
+   company.put("customerSupportPhone", "(713) 797-9040");
    company.put("activeAccount", true);
-   company.put("address", null);
-   company.put("accountInfo", null);
-   company.put("dateCreated", null);
+   company.put("address", address);
+   company.put("accountInfo", accountInfo);
+   company.put("dateCreated", LocalDateTime.now());
    
    Response response = given().
                    contentType("application/json").

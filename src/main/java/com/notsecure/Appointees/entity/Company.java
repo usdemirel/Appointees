@@ -15,10 +15,9 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode
-//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Company extends PublicInfo implements Serializable {
 
-@OneToOne
+@OneToOne (fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 private AccountInfo accountInfo;
 
 
