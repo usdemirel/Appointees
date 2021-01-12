@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface ServiceProviderRepository extends CrudRepository<ServiceProvider, Long> {
 
-    List<ServiceProvider> findAllByCompany_Id(Long companyId);
+    List<ServiceProvider> findAllByCompanyId(Long companyId);
 }

@@ -22,7 +22,7 @@ void setUp() throws Exception {
 }
 
 @Test
-final void testSaveDefaultWorkHours() {
+final void testSaveService() {
    
    Company company = new Company();
    company.setId(500L);

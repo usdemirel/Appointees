@@ -17,14 +17,15 @@ import java.util.List;
 @EqualsAndHashCode
 public class ServiceProvider implements Serializable {
 @Id
+@GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
-@OneToOne
+@OneToOne(cascade = CascadeType.MERGE)
 private User user;
-@OneToMany
+@ManyToMany(cascade = CascadeType.DETACH) // an important update..
 private List<Service> services; //set?
-@OneToOne
+@OneToOne(cascade = CascadeType.DETACH)
 private Company company;
-@OneToOne
+@OneToOne(cascade = CascadeType.DETACH)
 private Branch branch;
 private boolean serviceProviderAvailableOnBP; // is service provider is open to new appointments
 

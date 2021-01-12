@@ -28,7 +28,7 @@ public class ClientServiceImpl implements ClientService{
 
    @Override
    public Set<Client> findAllClientsByCompanyId(Long companyId) {
-       List<ServiceProvider> serviceProviderList = serviceProviderRepository.findAllByCompany_Id(companyId);
+       List<ServiceProvider> serviceProviderList = serviceProviderRepository.findAllByCompanyId(companyId);
        Set<Client> clients= new HashSet<>();
 
                 serviceProviderList
