@@ -35,9 +35,10 @@ private boolean serviceInfoPublicToAllBranches;
 private int allowedCancellationTimeWindowPriorToAppointment; // should be entered in minutes;
 /*For example, this value can be set to 90 at max to limit clients setting the appointment for 90 days later at most*/
 private int allowedDaysInAdvanceAppointmentBookings;
-@OneToOne
+@OneToOne(cascade = CascadeType.DETACH)
 Company company;
-@OneToOne @Nullable
+@OneToOne(cascade = CascadeType.DETACH)
+@Nullable
 Branch branch; // Company can create a service for branches to copy. At that time branch will be null.
 
 

@@ -67,8 +67,8 @@ public ResponseEntity<Company> updateCompany(@RequestBody Company company) {
    }
 }
 
-@RequestMapping(value = "admin/{companyId}/branch", method = RequestMethod.POST)
-public ResponseEntity<Branch> saveBranch(@PathVariable Long companyId, @RequestBody Branch branch){
+@RequestMapping(value = "admin/branch", method = RequestMethod.POST)
+public ResponseEntity<Branch> saveBranch(@RequestBody Branch branch){
       logger.info("New branch creation attempt" + branch.toString());
    try {
       return ResponseEntity.status(HttpStatus.CREATED).body(branchService.save(branch));

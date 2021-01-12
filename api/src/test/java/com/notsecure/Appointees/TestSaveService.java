@@ -1,6 +1,5 @@
 package com.notsecure.Appointees;
 
-import com.notsecure.Appointees.entity.Address;
 import com.notsecure.Appointees.entity.Branch;
 import com.notsecure.Appointees.entity.Company;
 import io.restassured.RestAssured;
@@ -14,7 +13,7 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class TestSaveDefaultWorkHours {
+public class TestSaveService {
 
 @BeforeEach
 void setUp() throws Exception {
@@ -31,26 +30,30 @@ final void testSaveDefaultWorkHours() {
    Branch branch = new Branch();
    branch.setId(300L);
    
-   Map<String, Object> weeklyDefaultWorkHours = new HashMap<>();
-   weeklyDefaultWorkHours.put("effectiveBy", "2019-05-19");
-   weeklyDefaultWorkHours.put("company", company);
-   weeklyDefaultWorkHours.put("branch", branch);
-   weeklyDefaultWorkHours.put("service", null);
-   weeklyDefaultWorkHours.put("serviceProvider", null);
-   weeklyDefaultWorkHours.put("sunday", "11:01,15:05");
-   weeklyDefaultWorkHours.put("monday", "11:01,15:05");
-   weeklyDefaultWorkHours.put("tuesday", "11:01,15:05");
-   weeklyDefaultWorkHours.put("wednesday", "11:01,15:05");
-   weeklyDefaultWorkHours.put("thursday", "11:01,15:05");
-   weeklyDefaultWorkHours.put("friday", "11:01,15:05");
-   weeklyDefaultWorkHours.put("saturday", "11:01,15:05");
+   Map<String, Object> service = new HashMap<>();
+   service.put("company", company);
+   service.put("branch", branch);
+   service.put("name", "FACE Therapy");
+   service.put("servicePageTitle", "FACE Therapy(NEW!!)");
+   service.put("description", "Each Massage Is Customized For Your Needs.");
+   service.put("serviceAvailableOnBP", true);
+   service.put("price", 100.0);
+   service.put("priceAvailableOnBP", true);
+   service.put("imageLink", null);
+   service.put("duration", 30);
+   service.put("bufferTime", 30);
+   service.put("durationVisibleOnBP", false);
+   service.put("serviceInfoPublicToAllBranches", true);
+   service.put("allowedCancellationTimeWindowPriorToAppointment", 50);
+   service.put("allowedDaysInAdvanceAppointmentBookings", 90);
+   
    
    Response response = given().
                    contentType("application/json").
                    accept("application/json").
-                   body(weeklyDefaultWorkHours).
+                   body(service).
                    when().
-                   post("/company/weeklydefaultworkhours").
+                   post("/admin/service").
                    then().
                    statusCode(201).
                    contentType("application/json").

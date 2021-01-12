@@ -16,7 +16,7 @@ private String zoneId;
 @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
 Company company;
 private boolean separateBilling;
-@OneToOne (fetch = FetchType.LAZY)
+@OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 private AccountInfo accountInfo; // if null, then payments are handled by the company.
 
 public Branch setActiveAccountFalse() {
