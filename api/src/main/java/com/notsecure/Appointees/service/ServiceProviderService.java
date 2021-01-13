@@ -10,5 +10,7 @@ public interface ServiceProviderService {
    Optional<ServiceProvider> findServiceProviderById(Long serviceProviderId) throws NotFoundException;
    List<ServiceProvider> findAllByCompanyId(Long companyId) throws NotFoundException;
    ServiceProvider saveServiceProvider(ServiceProvider serviceProvider) throws Exception;
+   boolean existsByUserId(Long userId);
+   
    
 }

@@ -20,6 +20,7 @@ public class ServiceProvider implements Serializable {
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
 @OneToOne(cascade = CascadeType.MERGE)
+//@Column(nullable = false, unique = true)
 private User user;
 @ManyToMany(cascade = CascadeType.DETACH) // an important update..
 private List<Service> services; //set?

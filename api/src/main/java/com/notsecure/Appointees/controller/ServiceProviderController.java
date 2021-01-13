@@ -6,12 +6,12 @@ import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-//Guven
 @RestController
 public class ServiceProviderController {
    @Autowired
@@ -31,9 +31,10 @@ public ResponseEntity<ServiceProvider> getServiceProviderById(@PathVariable Long
 public ResponseEntity<ServiceProvider> saveServiceProvider(@RequestBody ServiceProvider serviceProvider){
    try{
       return ResponseEntity.status(HttpStatus.CREATED).body(serviceProviderService.saveServiceProvider(serviceProvider));
-   }catch(Exception e){
+   }catch(DuplicateKeyException e){
+      throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(),e);
+   }   catch(Exception e){
       throw new ResponseStatusException(HttpStatus.NOT_MODIFIED, e.getMessage(),e);
    }
 }
-
 }

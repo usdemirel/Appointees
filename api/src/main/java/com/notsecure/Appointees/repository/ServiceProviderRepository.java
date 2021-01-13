@@ -10,4 +10,5 @@ import java.util.List;
 public interface ServiceProviderRepository extends CrudRepository<ServiceProvider, Long> {
 
     List<ServiceProvider> findAllByCompanyId(Long companyId);
+    boolean existsByUserId(Long userId);
 }

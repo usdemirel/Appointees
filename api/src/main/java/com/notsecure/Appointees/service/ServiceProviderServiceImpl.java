@@ -5,6 +5,7 @@ import com.notsecure.Appointees.model.ErrorMessages;
 import com.notsecure.Appointees.repository.ServiceProviderRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,9 +32,16 @@ public List<ServiceProvider> findAllByCompanyId(Long companyId) throws NotFoundE
 
 @Override
 public ServiceProvider saveServiceProvider(ServiceProvider serviceProvider) throws Exception{
+   if(serviceProvider.getId() == null && serviceProviderRepository.existsByUserId(serviceProvider.getUser().getId()))
+      throw new DuplicateKeyException(ErrorMessages.RECORD_ALREADY_EXISTS.getErrorMessage());
    ServiceProvider saved = serviceProviderRepository.save(serviceProvider);
    if(saved == null) throw new Exception(ErrorMessages.COULD_NOT_SAVE_RECORD.getErrorMessage());
    return saved;
+}
+
+@Override
+public boolean existsByUserId(Long userId) {
+   return serviceProviderRepository.existsByUserId(userId);
 }
 
 }
