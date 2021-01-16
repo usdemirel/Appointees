@@ -29,6 +29,8 @@ MonthlyBusinessWorkDaysOperations monthlyBusinessWorkDaysOperations;
 CustomDaysRepository customDaysRepository;
 @Autowired
 TextOperations textOperations;
+@Autowired
+WeeklyCustomServiceProviderScheduleService weeklyCustomServiceProviderScheduleService;
 
 @Override
 public Optional<WeeklyDefaultWorkHours> findById(Long id) throws NotFoundException {
@@ -62,11 +64,10 @@ public List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAnd
 public WeeklyDefaultWorkHours save(WeeklyDefaultWorkHours weeklyDefaultWorkHours) throws Exception {
    
    WeeklyDefaultWorkHours workHours = weeklyDefaultWorkHoursRepository.save(weeklyDefaultWorkHours);
-   
    if (workHours == null) throw new Exception("WeeklyDefaultWorkHours is not saved");
    
    Map<Integer, String> monthlyYearDataMap = null;
-   if (weeklyDefaultWorkHours.getBranch() != null) {
+   if (weeklyDefaultWorkHours.getBranch() != null && weeklyDefaultWorkHours.getService() == null && weeklyDefaultWorkHours.getServiceProvider() == null) {
       int year = LocalDate.now().getYear();
       List<MonthlyBusinessWorkDays> monthlyBusinessWorkDaysList = monthlyBusinessWorkDaysService.
                       findMonthlyBusinessWorkDaysByBranchIdAndFirstDayOfMonthIsBetweenOrderByFirstDayOfMonth(weeklyDefaultWorkHours.getBranch().getId(),
@@ -90,6 +91,10 @@ public WeeklyDefaultWorkHours save(WeeklyDefaultWorkHours weeklyDefaultWorkHours
       }
       if (monthlyBusinessWorkDaysService.saveAll(monthlyYearDataList).iterator().hasNext() == false)
          throw new Exception("MonthlyBusinessWorkDays is not saved");
+   } else if (weeklyDefaultWorkHours.getBranch() != null && weeklyDefaultWorkHours.getService() != null && weeklyDefaultWorkHours.getServiceProvider() != null) {
+      // This case covers the service provide schedule generation.
+      weeklyCustomServiceProviderScheduleService.generateAndSaveWeeklyCustomServiceProviderSchedule(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue() % 7), weeklyDefaultWorkHours.getServiceProvider().getId(),
+                      weeklyDefaultWorkHours.getCompany().getId(), weeklyDefaultWorkHours.getBranch().getId(), 2); // this value should be retrieved from service
    }
    return workHours;
 }
