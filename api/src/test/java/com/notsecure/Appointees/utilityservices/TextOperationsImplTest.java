@@ -187,7 +187,6 @@ void setUp() {
    customDaysList.add(generateCustomDaysObject(689L,"2020-12-29","closed","2020-12-10T11:18","another adj-2",300L,500L,1002L,1100L));
 }
 
-//TODO: FIX IT!
 @Test
 void generateWeeklyCustomServiceProviderSchedule(){
    

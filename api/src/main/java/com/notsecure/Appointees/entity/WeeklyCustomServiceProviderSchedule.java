@@ -1,10 +1,7 @@
 package com.notsecure.Appointees.entity;
 
 import com.sun.istack.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -22,6 +19,7 @@ Service is a must here because a person can be assigned to different duties let'
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class WeeklyCustomServiceProviderSchedule {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
