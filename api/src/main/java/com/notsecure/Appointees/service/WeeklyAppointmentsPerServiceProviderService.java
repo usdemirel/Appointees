@@ -1,0 +1,12 @@
+package com.notsecure.Appointees.service;
+
+import com.notsecure.Appointees.entity.WeeklyAppointmentsPerServiceProvider;
+import javassist.NotFoundException;
+
+import java.util.Optional;
+
+public interface WeeklyAppointmentsPerServiceProviderService {
+Optional<WeeklyAppointmentsPerServiceProvider> findWeeklyAppointmentsPerServiceProviderById(Long id) throws NotFoundException;
+WeeklyAppointmentsPerServiceProvider save(WeeklyAppointmentsPerServiceProvider weeklyAppointmentsPerServiceProvider) throws Exception;
+
+}

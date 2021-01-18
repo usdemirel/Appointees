@@ -1,9 +1,6 @@
 package com.notsecure.Appointees.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -12,6 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class Appointment {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,12 +20,21 @@ private LocalDateTime dateCreated;
 private LocalDateTime appointmentDateTime;
 private String bookingConfirmationNumber;
 private boolean cancelled;
-@OneToOne
+
+@OneToOne(cascade = CascadeType.PERSIST)
 private Client client;
-@OneToOne
-private Service service;
-@OneToOne
+@JoinColumn(updatable = false)
+@OneToOne(cascade = CascadeType.DETACH)
+private Company company;
+@JoinColumn(updatable = false)
+@OneToOne(cascade = CascadeType.DETACH)
+private Branch branch;
+@JoinColumn(updatable = false)
+@OneToOne(cascade = CascadeType.DETACH)
 private ServiceProvider serviceProvider;
+@JoinColumn(updatable = false)
+@OneToOne(cascade = CascadeType.DETACH)
+private Service service;
 
 /*
 private boolean isRecurring;
