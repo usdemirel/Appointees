@@ -53,6 +53,7 @@ final void testCreateCompany() {
    company.put("address", address);
    company.put("accountInfo", accountInfo);
    company.put("dateCreated", LocalDateTime.now());
+   company.put("uniqueIdentifier", "castledental");
    
    Response response = given().
                    contentType("application/json").

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +28,8 @@ private LocalDateTime dateCreated;
 
 
 private String businessName;
+@NotNull
+private String uniqueIdentifier; // For example company name is 'green apple' then identifier can be 'greenapple'
 private String bookingPageTitle;
 private String businessCategory;
 @Column(length = 1500)
