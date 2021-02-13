@@ -7,6 +7,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,13 @@ public Optional<com.notsecure.Appointees.entity.Service> findServiceById(Long id
    Optional<com.notsecure.Appointees.entity.Service> service = serviceRepository.findById(id);
    if(service.isEmpty()) throw new NotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage() + "with id of" + id);
    return service;
+}
+
+@Override
+public List<com.notsecure.Appointees.entity.Service> findAllByBranchId(Long branchId) throws NotFoundException {
+   List<com.notsecure.Appointees.entity.Service> services = serviceRepository.findAllByBranchId(branchId);
+   if(services.isEmpty()) throw new NotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage() + "with id of" + branchId);
+   return services;
 }
 
 @Override

@@ -29,6 +29,7 @@ private LocalDateTime dateCreated;
 
 private String businessName;
 @NotNull
+@Column(unique=true)
 private String uniqueIdentifier; // For example company name is 'green apple' then identifier can be 'greenapple'
 private String bookingPageTitle;
 private String businessCategory;

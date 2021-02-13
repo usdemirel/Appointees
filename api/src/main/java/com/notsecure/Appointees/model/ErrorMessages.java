@@ -10,7 +10,9 @@ public enum ErrorMessages {
    COULD_NOT_UPDATE_RECORD("Could not update record"),
    COULD_NOT_DELETE_RECORD("Could not delete record"),
    EMAIL_ADDRESS_NOT_VERIFIED("Email address could not be verified"),
-   CONVERSION_MISMATCH_EXCEPTION("Conversion Mismatch Exception");
+   CONVERSION_MISMATCH_EXCEPTION("Conversion Mismatch Exception"),
+   DUPLICATE_KEY("Duplicate Key Exception"),
+   DUPLICATE_KEY_UNIQUEIDENTIFIER("Unique Company/Branch Identifier Already Exists");
 
 
 private String errorMessage;

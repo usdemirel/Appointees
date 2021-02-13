@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @EqualsAndHashCode
 public class WeeklyDefaultWorkHours implements Serializable {
@@ -17,6 +18,7 @@ public class WeeklyDefaultWorkHours implements Serializable {
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
 LocalDate effectiveBy; // the date entered is inclusive
+@JoinColumn(updatable = false)
 @OneToOne(cascade = CascadeType.DETACH)
 private Company company;
 @JoinColumn(updatable = false)

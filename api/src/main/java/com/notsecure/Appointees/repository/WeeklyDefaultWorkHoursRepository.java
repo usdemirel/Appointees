@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface WeeklyDefaultWorkHoursRepository extends CrudRepository<WeeklyDefaultWorkHours, Long> {
@@ -28,6 +29,7 @@ List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByEffectiveByIsAfterAndCo
 List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIdAndServiceProviderIdAndEffectiveByIsAfterOrderByEffectiveBy(Long serviceId,Long serviceProviderId, LocalDate date);
 List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceProviderIdAndCompanyIdAndEffectiveByIsAfterOrderByEffectiveBy(Long serviceProviderId, Long companyId, LocalDate date);
 
+Optional<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByEffectiveByAndCompanyIdAndBranchIdAndServiceIdAndServiceProviderId(LocalDate effectiveBy, Long companyId, Long branchId, Long ServiceId, Long ServiceProviderId);
 
 
 

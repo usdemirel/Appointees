@@ -26,4 +26,6 @@ public String retrieveADay(MonthlyBusinessWorkDays monthlyData, LocalDate date);
 public String updateAllSingleDaysInMonthlyData(MonthlyBusinessWorkDays monthlyData, int day, int newValue); // For example, the business determines to be open all sundays, the input becomes 0,1
 
 public Map<Integer, String> createMonthlyYearDataForBranchFINAL(Long companyId, Long branchId, int year, int initMonth, int endMonth);
+
+void saveMonthlyData(WeeklyDefaultWorkHours weeklyDefaultWorkHours) throws Exception;
 }

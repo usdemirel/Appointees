@@ -31,7 +31,6 @@ public class AppointmentController {
    
    @RequestMapping(value = "/appointment", method = RequestMethod.POST)
    public ResponseEntity<Appointment> save(@RequestBody Appointment appointment){
-      System.out.println(appointment);
       try{
          return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.save(appointment));
       }catch (Exception e){

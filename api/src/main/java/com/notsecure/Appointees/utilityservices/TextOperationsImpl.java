@@ -181,6 +181,7 @@ private String convertDailyScheduleToAppointmentSlots(String daySchedule, int to
    int flag = 0;
    
    while (availableTime.isBefore(localTimes.get(localTimes.size() - 1)) && flag < localTimes.size()) {
+      System.out.print("-");
       if (availableTime.plusMinutes(totalServiceDuration).isBefore(localTimes.get(flag + 1)) || availableTime.plusMinutes(totalServiceDuration).equals(localTimes.get(flag + 1))) {
          sb.append(availableTime.toString() + ",");
          availableTime = availableTime.plusMinutes(totalServiceDuration);

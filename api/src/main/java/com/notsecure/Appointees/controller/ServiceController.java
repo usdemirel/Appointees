@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 public class ServiceController {
    
@@ -63,5 +65,15 @@ public ResponseEntity<Service> updateService(@PathVariable Long companyId, @Requ
    return null;
 }
 
+
+//TODO: List all services under a branch
+@RequestMapping("/public/service/branch/{branchId}")
+public ResponseEntity<List<Service>> getAllServicesByBranchId(@PathVariable Long branchId) {
+   try {
+      return ResponseEntity.status(HttpStatus.OK).body(serviceService.findAllByBranchId(branchId));
+   } catch (NotFoundException e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage(),e);
+   }
+}
 
 }

@@ -6,10 +6,12 @@ import com.notsecure.Appointees.entity.WeeklyDefaultWorkHours;
 import com.notsecure.Appointees.model.ErrorMessages;
 import com.notsecure.Appointees.service.CustomDaysService;
 import com.notsecure.Appointees.service.MonthlyBusinessWorkDaysService;
+import com.notsecure.Appointees.service.WeeklyCustomServiceProviderScheduleService;
 import com.notsecure.Appointees.service.WeeklyDefaultWorkHoursService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,6 +25,12 @@ WeeklyDefaultWorkHoursService weeklyDefaultWorkHoursService;
 CustomDaysService customDaysService;
 @Autowired
 MonthlyBusinessWorkDaysService monthlyBusinessWorkDaysService;
+/*
+This service shouldn't be here normally..
+But I will fix it soon.
+*/
+@Autowired
+WeeklyCustomServiceProviderScheduleService weeklyCustomServiceProviderScheduleService;
 
 /*
 SELECT * FROM WEEKLY_DEFAULT_WORK_HOURS WHERE EFFECTIVE_BY > '2019-12-31' AND COMPANY_ID = 500 AND BRANCH_ID IS NULL OR BRANCH_ID = 300 AND SERVICE_ID IS NULL ORDER BY EFFECTIVE_BY;
@@ -114,7 +122,7 @@ public Map<Integer, String> createMonthlyYearDataForBranchFINAL(Long companyId, 
    List<CustomDays> branchCustomDays = filterCustomDaysForBranch(companyId, branchId, year, initMonth, endMonth);
 //   branchWeeklyHours.forEach(data -> System.out.println("generatedWeeklyBranchWorkHoursBasedOnCompanyHours -> Id: " + data.getId() + " Eff: " + data.getEffectiveBy() + " Mon: " + data.getMonday() + " Tue: " + data.getTuesday() + " Wed: " + data.getWednesday() + " Thu: " + data.getThursday() + " Fri: " + data.getFriday() + " Sat: " + data.getSaturday()));
 //   branchCustomDays.forEach(data -> System.out.println("Custom Hours: " + data.getId() + " " + data.getCustomDate() + " " + data.getDailyWorkHours() + " " + data.getReason()));
-  
+   
    Map<LocalDate, CustomDays> customDaysMap = new HashMap<>();
    branchCustomDays.forEach(data -> customDaysMap.put(data.getCustomDate(), data));
    
@@ -141,7 +149,8 @@ public Map<Integer, String> createMonthlyYearDataForBranchFINAL(Long companyId, 
    
    Map<Integer, String> branch = new HashMap<>();
    System.out.println("createMonthlyYearDataForBranchFINAL: " + branchMap);
-   for(Integer key : branchMap.keySet()) branch.put(key, branchMap.get(key).substring(0,branchMap.get(key).length()-1));
+   for (Integer key : branchMap.keySet())
+      branch.put(key, branchMap.get(key).substring(0, branchMap.get(key).length() - 1));
    
    return branch;
 }
@@ -158,14 +167,14 @@ public MonthlyBusinessWorkDays updateADayInMonthlyData(MonthlyBusinessWorkDays o
 @Override
 public String retrieveADay(MonthlyBusinessWorkDays monthlyData, LocalDate date) {
    String[] daysArr = monthlyData.getMonthlyData().split(",");
-   if(daysArr.length <28 || daysArr.length >31)
+   if (daysArr.length < 28 || daysArr.length > 31)
       throw new FormatFlagsConversionMismatchException(ErrorMessages.CONVERSION_MISMATCH_EXCEPTION.getErrorMessage(), 'c'); //character means??
    return daysArr[date.getDayOfMonth() - 1];
 }
 
 @Override
 public String updateAllSingleDaysInMonthlyData(MonthlyBusinessWorkDays monthlyData, int day, int newValue) {
-   if(day>7 || day<1) throw new IndexOutOfBoundsException("Day values should be between 1 and 7");
+   if (day > 7 || day < 1) throw new IndexOutOfBoundsException("Day values should be between 1 and 7");
    int firstDay = (day - monthlyData.getFirstDayOfMonth().getDayOfWeek().getValue() + 7) % 7;
    String[] daysArr = monthlyData.getMonthlyData().split(",");
    while (firstDay < monthlyData.getFirstDayOfMonth().lengthOfMonth()) {
@@ -173,8 +182,8 @@ public String updateAllSingleDaysInMonthlyData(MonthlyBusinessWorkDays monthlyDa
       firstDay += 7;
    }
    StringBuilder result = new StringBuilder("");
-   Arrays.stream(daysArr).forEach(data -> result.append(data +","));
-   return result.substring(0,result.length()-1);
+   Arrays.stream(daysArr).forEach(data -> result.append(data + ","));
+   return result.substring(0, result.length() - 1);
 }
 
 private String[] generateWeeklyDefaultWorkHours(WeeklyDefaultWorkHours weeklyDefaultWorkHours) {
@@ -201,4 +210,33 @@ private WeeklyDefaultWorkHours generateBranchWeeklyDefaultWorkHours(WeeklyDefaul
    result.setSaturday(branch.getSaturday().equals("default") ? company.getSaturday() : branch.getSaturday());
    return result;
 }
+
+public void saveMonthlyData(WeeklyDefaultWorkHours weeklyDefaultWorkHours) throws Exception {
+   Map<Integer, String> monthlyYearDataMap = null;
+      int year = LocalDate.now().getYear();
+      List<MonthlyBusinessWorkDays> monthlyBusinessWorkDaysList = monthlyBusinessWorkDaysService.
+                      findMonthlyBusinessWorkDaysByBranchIdAndFirstDayOfMonthIsBetweenOrderByFirstDayOfMonth(weeklyDefaultWorkHours.getBranch().getId(),
+                                      LocalDate.of(year, LocalDate.now().getMonthValue(), 1), LocalDate.of(year, 12, 1));
+      monthlyYearDataMap = createMonthlyYearDataForBranchFINAL(weeklyDefaultWorkHours.getCompany().getId(),
+                      weeklyDefaultWorkHours.getBranch() == null ? null : weeklyDefaultWorkHours.getBranch().getId(),
+                      year, 1, 12);
+      
+      MonthlyBusinessWorkDays monthlyBusinessWorkDays = new MonthlyBusinessWorkDays();
+      monthlyBusinessWorkDays.setCompany(weeklyDefaultWorkHours.getCompany());
+      monthlyBusinessWorkDays.setBranch(weeklyDefaultWorkHours.getBranch());
+      List<MonthlyBusinessWorkDays> monthlyYearDataList = new ArrayList<>();
+      for (Integer key : monthlyYearDataMap.keySet()) {
+         MonthlyBusinessWorkDays aCopy = (MonthlyBusinessWorkDays) monthlyBusinessWorkDays.clone();
+         aCopy = monthlyBusinessWorkDaysList.stream().
+                         filter(data -> data.getFirstDayOfMonth().equals(LocalDate.of(year, key, 1))).findFirst().
+                         orElse(aCopy);
+         aCopy.setMonthlyData(monthlyYearDataMap.get(key));
+         aCopy.setFirstDayOfMonth(LocalDate.of(year, key, 1));
+         monthlyYearDataList.add(aCopy);
+      }
+      if (monthlyBusinessWorkDaysService.saveAll(monthlyYearDataList).iterator().hasNext() == false)
+         throw new Exception("MonthlyBusinessWorkDays is not saved");
+}
+
+
 }

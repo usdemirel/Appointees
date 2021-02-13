@@ -40,7 +40,7 @@ final void testSaveWeeklyDefaultWorkHours() {
    serviceProvider.setId(1100L);
    
    Map<String, Object> weeklyDefaultWorkHours = new HashMap<>();
-   weeklyDefaultWorkHours.put("effectiveBy", "2021-01-29");
+   weeklyDefaultWorkHours.put("effectiveBy", "2020-02-15");
    weeklyDefaultWorkHours.put("company", company);
    weeklyDefaultWorkHours.put("branch", branch);
    weeklyDefaultWorkHours.put("service", service);
@@ -50,7 +50,7 @@ final void testSaveWeeklyDefaultWorkHours() {
    weeklyDefaultWorkHours.put("tuesday", "10:00,12:00");
    weeklyDefaultWorkHours.put("wednesday", "08:00,12:00");
    weeklyDefaultWorkHours.put("thursday", "11:01,15:05");
-   weeklyDefaultWorkHours.put("friday", "08:00,12:00,13:00,18:00");
+   weeklyDefaultWorkHours.put("friday", "08:00,12:00,13:00,18:01");
    weeklyDefaultWorkHours.put("saturday", "closed");
 
    Response response = given().

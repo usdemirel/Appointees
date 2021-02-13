@@ -10,4 +10,5 @@ public interface BranchService {
    Optional<Branch> findBranchById(Long branchId) throws NotFoundException;
    List<Branch> findBranchesByCompanyId(Long companyId) throws NotFoundException;
    Branch save(Branch branch) throws Exception;
+   
 }

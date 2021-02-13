@@ -36,8 +36,6 @@ final void testCreateCompany() {
    accountInfo.setNumberOfBookingsLeft(99);
    accountInfo.setValidUntil(LocalDate.now().plusYears(2));
    
-   
-   
    Map<String, Object> company = new HashMap<>();
    company.put("businessName", "Castle Dental");
    company.put("bookingPageTitle", "We're Open and Providing Safe Smiles!'");
@@ -53,7 +51,7 @@ final void testCreateCompany() {
    company.put("address", address);
    company.put("accountInfo", accountInfo);
    company.put("dateCreated", LocalDateTime.now());
-   company.put("uniqueIdentifier", "castledental");
+   company.put("uniqueIdentifier", "castledentalCOPY");
    
    Response response = given().
                    contentType("application/json").

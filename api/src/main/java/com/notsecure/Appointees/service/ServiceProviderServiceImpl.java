@@ -44,4 +44,25 @@ public boolean existsByUserId(Long userId) {
    return serviceProviderRepository.existsByUserId(userId);
 }
 
+@Override
+public List<ServiceProvider> findAllByBranchId(Long branchId) throws NotFoundException {
+   List<ServiceProvider> serviceProviders = serviceProviderRepository.findAllByBranchId(branchId);
+   if(serviceProviders.isEmpty()) throw new NotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage() + " id: " + branchId);
+   return serviceProviders;
+}
+
+@Override
+public List<ServiceProvider> findAllByServicesId(Long serviceId) throws NotFoundException {
+   List<ServiceProvider> serviceProviders = serviceProviderRepository.findAllByServicesId(serviceId);
+   if(serviceProviders.isEmpty()) throw new NotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage() + " id: " + serviceId);
+   return serviceProviders;
+}
+
+@Override
+public List<ServiceProvider> findAllByBranchIdAndServicesId(Long branchId, Long serviceId) throws NotFoundException {
+   List<ServiceProvider> serviceProviders = serviceProviderRepository.findAllByBranchIdAndServicesId(branchId,serviceId);
+   if(serviceProviders.isEmpty()) throw new NotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+   return serviceProviders;
+}
+
 }

@@ -11,4 +11,8 @@ public interface ServiceProviderRepository extends CrudRepository<ServiceProvide
 
     List<ServiceProvider> findAllByCompanyId(Long companyId);
     boolean existsByUserId(Long userId);
+    List<ServiceProvider> findAllByBranchId(Long branchId);
+    List<ServiceProvider> findAllByServicesId(Long serviceId);
+    List<ServiceProvider> findAllByBranchIdAndServicesId(Long branchId, Long serviceId);
+    
 }

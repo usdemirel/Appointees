@@ -11,6 +11,9 @@ public interface ServiceProviderService {
    List<ServiceProvider> findAllByCompanyId(Long companyId) throws NotFoundException;
    ServiceProvider saveServiceProvider(ServiceProvider serviceProvider) throws Exception;
    boolean existsByUserId(Long userId);
+   List<ServiceProvider> findAllByBranchId(Long branchId) throws NotFoundException;
+   List<ServiceProvider> findAllByServicesId(Long serviceId) throws NotFoundException;
+   List<ServiceProvider> findAllByBranchIdAndServicesId(Long branchId, Long serviceId) throws NotFoundException;
    
    
 }

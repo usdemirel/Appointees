@@ -10,5 +10,7 @@ public interface CompanyService {
 Optional<Company> findCompanyById(Long companyId) throws NotFoundException;
 Optional<Company> findCompanyByName(String name);
 Company save(Company company) throws Exception;
+boolean existsByCompanyUniqueIdentifier(String uniqueIdentifier);
+
 
 }

@@ -12,5 +12,6 @@ public interface BranchRepository extends CrudRepository<Branch, Long> {
 //   Optional<Branch> findBranchById(Long branchId);
 //Optional<Branch>
 List<Branch> findBranchesByCompanyId(Long companyId);
+boolean existsByCompanyIdAndUniqueIdentifier(Long companyId, String uniqueIdentifier);
 
 }

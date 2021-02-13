@@ -1,6 +1,5 @@
 package com.notsecure.Appointees.service;
 
-import com.notsecure.Appointees.entity.MonthlyBusinessWorkDays;
 import com.notsecure.Appointees.entity.WeeklyDefaultWorkHours;
 import com.notsecure.Appointees.model.ErrorMessages;
 import com.notsecure.Appointees.repository.CustomDaysRepository;
@@ -9,10 +8,9 @@ import com.notsecure.Appointees.utilityservices.MonthlyBusinessWorkDaysOperation
 import com.notsecure.Appointees.utilityservices.TextOperations;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jca.cci.CannotCreateRecordException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.*;
 
@@ -62,40 +60,74 @@ public List<WeeklyDefaultWorkHours> findWeeklyDefaultWorkHoursByServiceIsNullAnd
 @Override
 @Transactional
 public WeeklyDefaultWorkHours save(WeeklyDefaultWorkHours weeklyDefaultWorkHours) throws Exception {
+   System.out.println(" 1 ");
+   //Checks for duplication
+   if(weeklyDefaultWorkHours.getId() == null && weeklyDefaultWorkHoursRepository.findWeeklyDefaultWorkHoursByEffectiveByAndCompanyIdAndBranchIdAndServiceIdAndServiceProviderId(
+                   weeklyDefaultWorkHours.getEffectiveBy().minusDays(1),weeklyDefaultWorkHours.getCompany().getId(),
+                   (weeklyDefaultWorkHours.getBranch()!=null)?weeklyDefaultWorkHours.getBranch().getId():null,
+                   (weeklyDefaultWorkHours.getService()!=null)?weeklyDefaultWorkHours.getService().getId():null,
+                   (weeklyDefaultWorkHours.getServiceProvider()!=null)?weeklyDefaultWorkHours.getServiceProvider().getId():null).isPresent()) {
+      throw new DuplicateKeyException("Duplicate Effective By Date already exists");
+   }
+   System.out.println(" 2 ");
    
+   //Finds the latest entry and changes its effectiveBy date accordingly
+   Optional<WeeklyDefaultWorkHours> former = weeklyDefaultWorkHoursRepository.findWeeklyDefaultWorkHoursByEffectiveByAndCompanyIdAndBranchIdAndServiceIdAndServiceProviderId(
+                   LocalDate.parse("2099-12-31"),weeklyDefaultWorkHours.getCompany().getId(),
+                   (weeklyDefaultWorkHours.getBranch()!=null)?weeklyDefaultWorkHours.getBranch().getId():null,
+                   (weeklyDefaultWorkHours.getService()!=null)?weeklyDefaultWorkHours.getService().getId():null,
+                   (weeklyDefaultWorkHours.getServiceProvider()!=null)?weeklyDefaultWorkHours.getServiceProvider().getId():null);
+   if(former.isPresent()) {
+      former.get().setEffectiveBy(weeklyDefaultWorkHours.getEffectiveBy().minusDays(1));
+      weeklyDefaultWorkHoursRepository.save(former.get());
+   }
+   System.out.println(" 3 ");
+   
+   //attempts to save the weekly default work hours.
+   weeklyDefaultWorkHours.setEffectiveBy(LocalDate.parse("2099-12-31"));
    WeeklyDefaultWorkHours workHours = weeklyDefaultWorkHoursRepository.save(weeklyDefaultWorkHours);
    if (workHours == null) throw new Exception("WeeklyDefaultWorkHours is not saved");
    
-   Map<Integer, String> monthlyYearDataMap = null;
-   if (weeklyDefaultWorkHours.getBranch() != null && weeklyDefaultWorkHours.getService() == null && weeklyDefaultWorkHours.getServiceProvider() == null) {
-      int year = LocalDate.now().getYear();
-      List<MonthlyBusinessWorkDays> monthlyBusinessWorkDaysList = monthlyBusinessWorkDaysService.
-                      findMonthlyBusinessWorkDaysByBranchIdAndFirstDayOfMonthIsBetweenOrderByFirstDayOfMonth(weeklyDefaultWorkHours.getBranch().getId(),
-                                      LocalDate.of(year, LocalDate.now().getMonthValue(), 1), LocalDate.of(year, 12, 1));
-      monthlyYearDataMap = monthlyBusinessWorkDaysOperations.createMonthlyYearDataForBranchFINAL(weeklyDefaultWorkHours.getCompany().getId(),
-                      weeklyDefaultWorkHours.getBranch() == null ? null : weeklyDefaultWorkHours.getBranch().getId(),
-                      year, 1, 12);
-      
-      MonthlyBusinessWorkDays monthlyBusinessWorkDays = new MonthlyBusinessWorkDays();
-      monthlyBusinessWorkDays.setCompany(weeklyDefaultWorkHours.getCompany());
-      monthlyBusinessWorkDays.setBranch(weeklyDefaultWorkHours.getBranch());
-      List<MonthlyBusinessWorkDays> monthlyYearDataList = new ArrayList<>();
-      for (Integer key : monthlyYearDataMap.keySet()) {
-         MonthlyBusinessWorkDays aCopy = (MonthlyBusinessWorkDays) monthlyBusinessWorkDays.clone();
-         aCopy = monthlyBusinessWorkDaysList.stream().
-                         filter(data -> data.getFirstDayOfMonth().equals(LocalDate.of(year, key, 1))).findFirst().
-                         orElse(aCopy);
-         aCopy.setMonthlyData(monthlyYearDataMap.get(key));
-         aCopy.setFirstDayOfMonth(LocalDate.of(year, key, 1));
-         monthlyYearDataList.add(aCopy);
-      }
-      if (monthlyBusinessWorkDaysService.saveAll(monthlyYearDataList).iterator().hasNext() == false)
-         throw new Exception("MonthlyBusinessWorkDays is not saved");
-   } else if (weeklyDefaultWorkHours.getBranch() != null && weeklyDefaultWorkHours.getService() != null && weeklyDefaultWorkHours.getServiceProvider() != null) {
-      // This case covers the service provide schedule generation.
-      weeklyCustomServiceProviderScheduleService.generateAndSaveWeeklyCustomServiceProviderSchedule(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue() % 7), weeklyDefaultWorkHours.getServiceProvider().getId(),
-                      weeklyDefaultWorkHours.getCompany().getId(), weeklyDefaultWorkHours.getBranch().getId(), 2); // this value should be retrieved from service
-   }
+   if (weeklyDefaultWorkHours.getBranch() != null && weeklyDefaultWorkHours.getService() == null && weeklyDefaultWorkHours.getServiceProvider() == null){
+      //Based on the update, monthly data is generated here
+      monthlyBusinessWorkDaysOperations.saveMonthlyData(weeklyDefaultWorkHours);
+   }else if (weeklyDefaultWorkHours.getBranch() != null && weeklyDefaultWorkHours.getService() != null && weeklyDefaultWorkHours.getServiceProvider() != null) {
+      // This case covers the service provider schedule generation.
+   weeklyCustomServiceProviderScheduleService.generateAndSaveWeeklyCustomServiceProviderSchedule(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue() % 7), weeklyDefaultWorkHours.getServiceProvider().getId(),
+                   weeklyDefaultWorkHours.getCompany().getId(), weeklyDefaultWorkHours.getBranch().getId(), 2); // this value should be retrieved from service
+}
+
+
+//   Map<Integer, String> monthlyYearDataMap = null;
+//   if (weeklyDefaultWorkHours.getBranch() != null && weeklyDefaultWorkHours.getService() == null && weeklyDefaultWorkHours.getServiceProvider() == null) {
+//      int year = LocalDate.now().getYear();
+//      List<MonthlyBusinessWorkDays> monthlyBusinessWorkDaysList = monthlyBusinessWorkDaysService.
+//                      findMonthlyBusinessWorkDaysByBranchIdAndFirstDayOfMonthIsBetweenOrderByFirstDayOfMonth(weeklyDefaultWorkHours.getBranch().getId(),
+//                                      LocalDate.of(year, LocalDate.now().getMonthValue(), 1), LocalDate.of(year, 12, 1));
+//      monthlyYearDataMap = monthlyBusinessWorkDaysOperations.createMonthlyYearDataForBranchFINAL(weeklyDefaultWorkHours.getCompany().getId(),
+//                      weeklyDefaultWorkHours.getBranch() == null ? null : weeklyDefaultWorkHours.getBranch().getId(),
+//                      year, 1, 12);
+//
+//      MonthlyBusinessWorkDays monthlyBusinessWorkDays = new MonthlyBusinessWorkDays();
+//      monthlyBusinessWorkDays.setCompany(weeklyDefaultWorkHours.getCompany());
+//      monthlyBusinessWorkDays.setBranch(weeklyDefaultWorkHours.getBranch());
+//      List<MonthlyBusinessWorkDays> monthlyYearDataList = new ArrayList<>();
+//      for (Integer key : monthlyYearDataMap.keySet()) {
+//         MonthlyBusinessWorkDays aCopy = (MonthlyBusinessWorkDays) monthlyBusinessWorkDays.clone();
+//         aCopy = monthlyBusinessWorkDaysList.stream().
+//                         filter(data -> data.getFirstDayOfMonth().equals(LocalDate.of(year, key, 1))).findFirst().
+//                         orElse(aCopy);
+//         aCopy.setMonthlyData(monthlyYearDataMap.get(key));
+//         aCopy.setFirstDayOfMonth(LocalDate.of(year, key, 1));
+//         monthlyYearDataList.add(aCopy);
+//      }
+//      if (monthlyBusinessWorkDaysService.saveAll(monthlyYearDataList).iterator().hasNext() == false)
+//         throw new Exception("MonthlyBusinessWorkDays is not saved");
+//   } else if (weeklyDefaultWorkHours.getBranch() != null && weeklyDefaultWorkHours.getService() != null && weeklyDefaultWorkHours.getServiceProvider() != null) {
+//      // This case covers the service provide schedule generation.
+//      weeklyCustomServiceProviderScheduleService.generateAndSaveWeeklyCustomServiceProviderSchedule(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue() % 7), weeklyDefaultWorkHours.getServiceProvider().getId(),
+//                      weeklyDefaultWorkHours.getCompany().getId(), weeklyDefaultWorkHours.getBranch().getId(), 2); // this value should be retrieved from service
+//   }
    return workHours;
 }
 

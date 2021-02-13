@@ -18,7 +18,7 @@ private Long id;
 @OneToOne(cascade = CascadeType.MERGE)
 //@Column(nullable = false, unique = true)
 private User user;
-@ManyToMany(cascade = CascadeType.DETACH) // an important update..
+@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY) // an important update..
 private List<Service> services; //set?
 @OneToOne(cascade = CascadeType.DETACH)
 private Company company;
