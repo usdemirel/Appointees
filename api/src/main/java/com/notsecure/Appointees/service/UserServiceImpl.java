@@ -18,7 +18,14 @@ public class UserServiceImpl implements UserService{
 public Optional<User> findUserById(Long Id) throws NotFoundException {
    Optional<User> user = userRepository.findById(Id);
    if(user.isEmpty()) throw new NotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
-   return Optional.empty();
+   return user;
+}
+
+@Override
+public Optional<User> findUserByEmail(String email) throws NotFoundException {
+   Optional<User> user = userRepository.findByEmail(email);
+   if(user.isEmpty()) throw new NotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+   return user;
 }
 
 @Override
