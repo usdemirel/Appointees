@@ -1,36 +1,36 @@
 package com.notsecure.Appointees.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
+@EqualsAndHashCode
 public class UserRole {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
-private Long Id;
-private LocalDateTime dateCreated;
-private String personnelHighlights;
-//private String role; //  MasterAdmin, BranchAdmin,BookingClerk,SeniorServiceProvider, JuniorServiceProvider, Observer
-@OneToOne
-private Permissions permissions;
-private boolean roleValid;
-private boolean defaultRole; // isdefaulRole: when logging in, the system will take the user to the page based on the default role
-@OneToOne
-private User roleAssignedBy;
-@OneToOne(fetch = FetchType.LAZY)
-private Company company;
-@OneToOne(fetch = FetchType.LAZY)
-private Branch branch;
-@ManyToOne(fetch = FetchType.LAZY)
+private Long id;
+private LocalDateTime timestamp;
+
+@JoinColumn(updatable = false)
+@ManyToOne(cascade = CascadeType.DETACH)
 private User user;
 
+@JoinColumn(updatable = false)
+@OneToOne(cascade = CascadeType.DETACH)
+private Role role;
+
+private boolean active;
+@JoinColumn(updatable = false)
+@OneToOne(cascade = CascadeType.DETACH)
+private Company company;
+
+@JoinColumn(updatable = false)
+@OneToOne(cascade = CascadeType.DETACH)
+private Branch branch;
 
 }

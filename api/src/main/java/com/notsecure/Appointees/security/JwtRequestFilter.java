@@ -38,19 +38,19 @@ protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServl
    String jwt = null;
    
    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-      jwt = authorizationHeader.substring(7);
+      jwt = authorizationHeader.substring(7);//5
       try{
          email = jwtTokenUtil.extractUsername(jwt);
       }catch (SignatureException e){
          //TODO: Properly Log this activity: No need to throw error!
-         logger.info("SignatureException");
+         logger.warn("SignatureException");
       }
    }
    
    if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.appointeesUserDetailsService.loadUserByUsername(email);
       if (jwtTokenUtil.validateToken(jwt, userDetails)) {
-         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()); //19//20
          usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
          SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
       }

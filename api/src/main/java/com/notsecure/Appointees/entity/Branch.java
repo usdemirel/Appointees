@@ -1,5 +1,6 @@
 package com.notsecure.Appointees.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class Branch extends PublicInfo implements Serializable {
 private String zoneId;
+@JsonBackReference
 @JoinColumn(updatable = false)
 @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
 Company company;
