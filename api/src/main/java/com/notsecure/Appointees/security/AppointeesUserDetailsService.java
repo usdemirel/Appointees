@@ -9,12 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 
 @Service
 public class AppointeesUserDetailsService implements UserDetailsService {
-   @Autowired
+@Autowired
 UserService userService;
 
 @Override
@@ -22,7 +21,7 @@ public UserDetails loadUserByUsername(String email) throws UsernameNotFoundExcep
    //TODO: pull the user from database
    com.notsecure.Appointees.entity.User user;
    try {
-      user = userService.findUserByEmail(email).get();
+      user = userService.findUserByEmail(email).get(); //9
    } catch (NotFoundException e) {
       throw new UsernameNotFoundException(ErrorMessages.EMAIL_ADDRESS_NOT_VERIFIED.getErrorMessage());
    }

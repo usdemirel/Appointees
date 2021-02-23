@@ -20,24 +20,24 @@ public class JwtUtil {
 private String SECRET_KEY; //TODO: Should be pulled from the properties file. Plus, it needs more complexity.
 
 public String extractUsername(String token)  throws SignatureException{
-   return extractClaim(token, Claims::getSubject);
+   return extractClaim(token, Claims::getSubject);//6 //11
 }
 
 public Date extractExpiration(String token) {
-   return extractClaim(token, Claims::getExpiration);
+   return extractClaim(token, Claims::getExpiration); //16
 }
 
 public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) throws SignatureException {
    final Claims claims = extractAllClaims(token);
-   return claimsResolver.apply(claims);
+   return claimsResolver.apply(claims); //8 /13 //18
 }
 
 private Claims extractAllClaims(String token) throws SignatureException{
-      return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+      return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody(); //7 //12 //17
 }
 
 private Boolean isTokenExpired(String token) {
-   return extractExpiration(token).before(new Date());
+   return extractExpiration(token).before(new Date()); //15
 }
 
 public String generateToken(UserDetails userDetails) {
@@ -54,7 +54,7 @@ private String createToken(Map<String, Object> claims, String subject) {
 }
 
 public Boolean validateToken(String token, UserDetails userDetails) {
-   final String username = extractUsername(token);
+   final String username = extractUsername(token); //10 //14
    return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 }
 

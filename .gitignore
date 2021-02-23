@@ -1,0 +1,4 @@
+/.idea/
+/api/src/main/resources/data/appointees.lock.db
+/api/src/main/resources/data/appointees.mv.db
+/AppointmentApp.log

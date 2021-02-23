@@ -30,6 +30,7 @@ public Optional<User> findUserByEmail(String email) throws NotFoundException {
 
 @Override
 public User save(User user) throws Exception {
+   System.out.println("++++++ >  >    > " + user);
    User saved = userRepository.save(user);
    if(saved==null) throw new Exception(ErrorMessages.COULD_NOT_SAVE_RECORD.getErrorMessage());
    return saved;
