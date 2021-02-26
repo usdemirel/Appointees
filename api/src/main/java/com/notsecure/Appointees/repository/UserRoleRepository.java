@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRoleRepository extends CrudRepository<UserRole, Long> {
+public interface UserRoleRepository extends CrudRepository<UserRole, Long>, UserRoleRepositoryCustom {
 
 List<UserRole> findUserRolesByUserId(Long userId);
 List<UserRole> findUserRolesByUserIdAndActiveIsTrue(Long userId);

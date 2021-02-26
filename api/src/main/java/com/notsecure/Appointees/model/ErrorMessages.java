@@ -6,6 +6,7 @@ public enum ErrorMessages {
    INTERNAL_SERVICE_ERROR("Internal Service error"),
    NO_RECORD_FOUND("Record with provided ID is not found"),
    AUTHENTICATION_FAILED("Authentication failed"),
+   AUTHORIZATION_FAILED("Authorization failed"),
    COULD_NOT_SAVE_RECORD("Record not saved"),
    COULD_NOT_UPDATE_RECORD("Could not update record"),
    COULD_NOT_DELETE_RECORD("Could not delete record"),
